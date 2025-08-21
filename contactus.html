@@ -8,6 +8,32 @@
     <meta name="keywords" content="css, tailwindcss, tailwind, js, SEO">
     <title>ContactUS</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'quest-primary': '#3B82F6',
+                        'quest-secondary': '#10B981',
+                        'quest-accent': '#F59E0B',
+                        'quest-dark': '#1F2937',
+                        'quest-light': '#F3F4F6'
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         /* Minimal custom styles - mostly using Tailwind */
         .gradient-bg {
@@ -54,7 +80,7 @@
         }
     </style>
 </head>
-<body class="gradient-bg min-h-screen">
+<body class="bg-gray-900 text-white min-h-screen">
     <!-- Notification Container -->
     <div id="notification-container" class="fixed top-5 right-5 z-50 space-y-3"></div>
     
@@ -66,8 +92,48 @@
     </div>
     
     <!-- Navigation -->
-    <nav class="bg-white shadow-sm py-4 px-6">
-        <div class="container mx-auto">
+    <nav class="bg-quest-dark/80 backdrop-blur-sm border-b border-gray-700 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-2xl font-bold text-quest-primary">🎨 Tailwind Quest</h1>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">Home</a>
+                    <a href="#" class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">About Us</a>
+                    <a href="#" class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">Contact Us</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button class="text-gray-300 hover:text-quest-primary focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-4">
+                    <span class="text-sm text-gray-300">Level: <span id="level" class="font-bold text-quest-secondary">1</span></span>
+                    <span class="text-sm text-gray-300">Score: <span id="score" class="font-bold text-quest-accent">0</span></span>
+                    <span class="text-sm text-gray-300">Concepts: <span id="concepts" class="font-bold text-purple-400">0</span></span>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu (Hidden by default) -->
+            <div class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="index.html" class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">Home</a>
+                    <a href="#" class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">About Us</a>
+                    <a href="#" class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="bg-white shadow-sm py-4 px-6">
+        <div class="container mx-auto ">
             <a href="./index.html" class="text-gray-600 hover:text-amber-600 font-medium flex items-center transition-colors duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
@@ -75,10 +141,11 @@
                 Back to Home
             </a>
         </div>
-    </nav>
+    </div>
 
     <!-- Main Content -->
-    <div class="container mx-auto px-4 py-8">
+    <main class ="gradient-bg min-h-screen">
+        <div class="container mx-auto px-4 py-8">
         <!-- Heading -->
         <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-700">Get in Touch</h2>
@@ -207,7 +274,8 @@
             </div>
         </div>
     </div>
-
-    <script src="./script.js"></script>
+    </main>
+    
+<script src="./script.js"></script>
 </body>
 </html>
