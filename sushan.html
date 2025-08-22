@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sushan - CV | Tailwind Quest</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'quest-primary': '#3B82F6',
+                        'quest-secondary': '#10B981',
+                        'quest-accent': '#F59E0B',
+                        'quest-dark': '#1F2937',
+                        'quest-light': '#F3F4F6'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-quest-dark/80 backdrop-blur-sm border-b border-gray-700 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-2xl font-bold text-quest-primary">🎨 Tailwind Quest</h1>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="./index.html"
+                        class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">Home</a>
+                    <a href="./about.html"
+                        class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">About
+                        Us</a>
+                    <a href="./contactus.html"
+                        class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">Contact
+                        Us</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button class="text-gray-300 hover:text-quest-primary focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-4">
+                    <span class="text-sm text-gray-300">Level: <span id="level"
+                            class="font-bold text-quest-secondary">1</span></span>
+                    <span class="text-sm text-gray-300">Score: <span id="score"
+                            class="font-bold text-quest-accent">0</span></span>
+                    <span class="text-sm text-gray-300">Concepts: <span id="concepts"
+                            class="font-bold text-purple-400">0</span></span>
+                </div>
+            </div>
+
+            <!-- Mobile Menu (Hidden by default) -->
+            <div class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="./index.html"
+                        class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">Home</a>
+                    <a href="./about.html"
+                        class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">About
+                        Us</a>
+                    <a href="./contactus.html"
+                        class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">Contact
+                        Us</a>
+                </div>
+            </div>
+        </div>
+
+    </nav>
+
+
+    <div class="relative max-w-4xl mx-auto px-6 mt-8">
+
+        <button onclick="window.location.href='about.html'"
+            class="absolute left-0 top-0 -ml-24 flex items-center text-quest-primary border border-quest-primary rounded-md px-3 py-1.5 font-semibold hover:text-quest-accent hover:border-quest-accent transition-colors duration-300"
+            aria-label="Go back">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back
+        </button>
+
+        <section class="py-16 px-6 border-2 border-quest-primary/40 rounded-lg bg-quest-dark/40 shadow-lg">
+            <div class="text-center mb-12">
+                <!-- ✅ Updated Profile Photo -->
+                <img src="./img/Sushan.jpg" alt="Sushan Pudasaini"
+                    class="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full mx-auto border-4 border-quest-primary object-cover mb-4">
+
+                <h1 class="text-4xl font-bold text-white mb-1">Sushan Pudasaini</h1>
+                <p class="text-quest-accent mb-2">Curriculum Developer</p>
+                <p class="text-gray-300 max-w-xl mx-auto">
+                    Passionate about creating beautiful, intuitive user interfaces. Alex leads the frontend development
+                    of
+                    Tailwind Quest, focusing on speed, accessibility, and clean code.
+                </p>
+            </div>
+
+            <div class="space-y-10">
+
+                <div>
+                    <h2 class="text-2xl font-bold text-quest-primary mb-4">🛠️ Skills</h2>
+                    <ul class="list-disc list-inside text-gray-300 space-y-1">
+                        <li>Tailwind CSS, HTML5, CSS3</li>
+                        <li>JavaScript, React, Next.js</li>
+                        <li>UI/UX Design, Responsive Design</li>
+                        <li>Git, GitHub, CI/CD</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2 class="text-2xl font-bold text-quest-primary mb-4">💼 Experience</h2>
+                    <div class="text-gray-300">
+                        <p class="font-semibold text-white">Frontend Engineer – Tailwind Quest</p>
+                        <p class="text-sm text-gray-400">2024 – Present</p>
+                        <p class="mt-2">
+                            Led the design and implementation of the learning interface, including interactive previews,
+                            real-time feedback, and responsive layout challenges.
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="text-2xl font-bold text-quest-primary mb-4">🎓 Education</h2>
+                    <div class="text-gray-300">
+                        <p class="font-semibold text-white">BSc (Hons) Computing with Artificial Intelligence</p>
+                        <p class="text-sm text-gray-400">Islington College — 2024–2027</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="text-2xl font-bold text-quest-primary mb-4">📫 Contact</h2>
+                    <ul class="text-gray-300 space-y-2">
+                        <li>Email: <a href="mailto:alex@example.com"
+                                class="text-quest-accent hover:underline">alex@example.com</a></li>
+                        <li>GitHub: <a href="https://github.com/alexcarter" target="_blank"
+                                class="text-quest-accent hover:underline">github.com/alexcarter</a></li>
+                        <li>Portfolio: <a href="https://alexcarter.dev" target="_blank"
+                                class="text-quest-accent hover:underline">alexcarter.dev</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <footer class="text-center py-6 border-t border-gray-700 text-gray-400 mt-16">
+        © 2025 Tailwind Quest — Designed by Alex Carter and Team
+    </footer>
+
+</body>
+
+</html>

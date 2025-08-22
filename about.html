@@ -28,44 +28,53 @@
 
   <!-- Navbar -->
   <nav class="bg-quest-dark/80 backdrop-blur-sm border-b border-gray-700 sticky top-0 z-50">
-     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center space-x-4">
-                    <h1 class="text-2xl font-bold text-quest-primary">🎨 Tailwind Quest</h1>
-                </div>
-                
-                <!-- Navigation Links -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="./index.html" class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">Home</a>
-                    <a href="./about.html" class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">About Us</a>
-                    <a href="./contactus.html" class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">Contact Us</a>
-                </div>
-                
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden">
-                    <button class="text-gray-300 hover:text-quest-primary focus:outline-none">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
-                
-                <div class="hidden md:flex items-center space-x-4">
-                    <span class="text-sm text-gray-300">Level: <span id="level" class="font-bold text-quest-secondary">1</span></span>
-                    <span class="text-sm text-gray-300">Score: <span id="score" class="font-bold text-quest-accent">0</span></span>
-                    <span class="text-sm text-gray-300">Concepts: <span id="concepts" class="font-bold text-purple-400">0</span></span>
-                </div>
-            </div>
-            
-            <!-- Mobile Menu (Hidden by default) -->
-            <div class="md:hidden hidden">
-                <div class="px-2 pt-2 pb-3 space-y-1">
-                    <a href="./index.html" class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">Home</a>
-                    <a href="./about.html" class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">About Us</a>
-                    <a href="./contactus.html" class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">Contact Us</a>
-                </div>
-            </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center space-x-4">
+          <h1 class="text-2xl font-bold text-quest-primary">🎨 Tailwind Quest</h1>
         </div>
+
+        <!-- Navigation Links -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="./index.html"
+            class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">Home</a>
+          <a href="./about.html"
+            class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">About Us</a>
+          <a href="./contactus.html"
+            class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">Contact Us</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+          <button class="text-gray-300 hover:text-quest-primary focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="hidden md:flex items-center space-x-4">
+          <span class="text-sm text-gray-300">Level: <span id="level"
+              class="font-bold text-quest-secondary">1</span></span>
+          <span class="text-sm text-gray-300">Score: <span id="score"
+              class="font-bold text-quest-accent">0</span></span>
+          <span class="text-sm text-gray-300">Concepts: <span id="concepts"
+              class="font-bold text-purple-400">0</span></span>
+        </div>
+      </div>
+
+      <!-- Mobile Menu (Hidden by default) -->
+      <div class="md:hidden hidden">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+          <a href="./index.html"
+            class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">Home</a>
+          <a href="./about.html"
+            class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">About Us</a>
+          <a href="./contactus.html"
+            class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">Contact Us</a>
+        </div>
+      </div>
+    </div>
 
   </nav>
 
@@ -80,76 +89,78 @@
       </p>
     </div>
 
-    <!-- Team Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div class="space-y-12">
 
       <!-- Member 1 -->
-      <a href="anjal.html" class="transform transition-all hover:scale-105 hover:shadow-2xl">
+      <a href="anjal.html" class="block">
         <div
-          class="bg-quest-dark p-6 rounded-lg border border-white/10 text-center shadow-md hover:border-quest-primary transition">
+          class="flex flex-col md:flex-row items-center bg-quest-dark py-8 px-6 rounded-lg border border-white/10 shadow-md hover:border-quest-primary transition">
           <img src="./img/anjal.jpg" alt="Anjal Bhattarai"
-            class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-quest-primary object-cover">
-          <h3 class="text-xl font-semibold text-white">Anjal Bhattarai</h3>
-          <p class="text-quest-secondary mb-2">Frontend Engineer</p>
-          <p class="text-gray-400 text-sm">
-            Anjal specializes in building elegant UIs with Tailwind CSS and React. He designed most of the
-            learning interface.
-          </p>
+            class="w-40 h-40 rounded-full border-4 border-quest-primary object-cover mb-6 md:mb-0 md:mr-8">
+          <div class="text-center md:text-left">
+            <h3 class="text-2xl font-semibold text-white mb-2">Anjal Bhattarai</h3>
+            <p class="text-quest-secondary text-lg mb-3">Frontend Engineer</p>
+            <p class="text-gray-400 text-base">
+              Anjal specializes in building elegant UIs with Tailwind CSS and React. He designed most of the learning
+              interface.
+            </p>
+          </div>
         </div>
       </a>
 
-<!-- Member 2 -->
-<a href="sushan.html" class="transform transition-all hover:scale-105 hover:shadow-2xl">
-  <div
-    class="bg-quest-dark p-6 rounded-lg border border-white/10 text-center shadow-md hover:border-quest-accent transition">
-    
-    <!-- Zoomed-in image with upward shift -->
-    <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-quest-accent">
-      <img src="./img/Sushan.jpg" alt="Sushan Pudasaini"
-        class="w-full h-full object-cover object-top scale-110 -mt-2">
-    </div>
-
-    <h3 class="text-xl font-semibold text-white">Sushan Pudasaini</h3>
-    <p class="text-quest-accent mb-2">Curriculum Developer</p>
-    <p class="text-gray-400 text-sm">
-      Sushan crafted the challenge structure and progressive learning path to ensure educational value.
-    </p>
-  </div>
-</a>
-
-
+      <!-- Member 2 -->
+      <a href="sushan.html" class="block">
+        <div
+          class="flex flex-col md:flex-row-reverse items-center bg-quest-dark py-8 px-6 rounded-lg border border-white/10 shadow-md hover:border-quest-accent transition">
+          <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-quest-accent mb-6 md:mb-0 md:ml-8">
+            <img src="./img/Sushan.jpg" alt="Sushan Pudasaini"
+              class="w-full h-full object-cover object-top scale-110 -mt-3">
+          </div>
+          <div class="text-center md:text-right">
+            <h3 class="text-2xl font-semibold text-white mb-2">Sushan Pudasaini</h3>
+            <p class="text-quest-accent text-lg mb-3">Curriculum Developer</p>
+            <p class="text-gray-400 text-base">
+              Sushan crafted the challenge structure and progressive learning path to ensure educational value.
+            </p>
+          </div>
+        </div>
+      </a>
 
       <!-- Member 3 -->
-      <a href="ishan.html" class="transform transition-all hover:scale-105 hover:shadow-2xl">
+      <a href="ishan.html" class="block">
         <div
-          class="bg-quest-dark p-6 rounded-lg border border-white/10 text-center shadow-md hover:border-purple-400 transition">
-          <img src="./img/ishan.jpg" alt="Morgan Patel"
-            class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-purple-400 object-cover object-top">
-          <h3 class="text-xl font-semibold text-white">Ishan Maharjan</h3>
-          <p class="text-purple-400 mb-2">Full Stack Developer</p>
-          <p class="text-gray-400 text-sm">
-            Ishan handled the backend systems and interactive real-time challenge engine that powers
-            Tailwind Quest.
-          </p>
+          class="flex flex-col md:flex-row items-center bg-quest-dark py-8 px-6 rounded-lg border border-white/10 shadow-md hover:border-purple-400 transition">
+          <img src="./img/ishan.jpg" alt="Ishan Maharjan"
+            class="w-40 h-40 rounded-full border-4 border-purple-400 object-cover object-top mb-6 md:mb-0 md:mr-8">
+          <div class="text-center md:text-left">
+            <h3 class="text-2xl font-semibold text-white mb-2">Ishan Maharjan</h3>
+            <p class="text-purple-400 text-lg mb-3">Full Stack Developer</p>
+            <p class="text-gray-400 text-base">
+              Ishan handled the backend systems and interactive real-time challenge engine that powers Tailwind Quest.
+            </p>
+          </div>
         </div>
       </a>
 
       <!-- Member 4 -->
-      <a href="sahil.html" class="transform transition-all hover:scale-105 hover:shadow-2xl">
+      <a href="shahil.html" class="block">
         <div
-          class="bg-quest-dark p-6 rounded-lg border border-white/10 text-center shadow-md hover:border-yellow-400 transition">
-          <img src="./img/sahil.jpg" alt="Riley Gomez"
-            class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-yellow-400 object-cover object-top">
-          <h3 class="text-xl font-semibold text-white">Shahil Basnet</h3>
-          <p class="text-yellow-400 mb-2">AI & UX Designer</p>
-          <p class="text-gray-400 text-sm">
-            Shahil created the AI tutor experience and designed a user-friendly UX to guide learners
-            throughout their journey.
-          </p>
+          class="flex flex-col md:flex-row-reverse items-center bg-quest-dark py-8 px-6 rounded-lg border border-white/10 shadow-md hover:border-yellow-400 transition">
+          <img src="./img/shahil.jpg" alt="Shahil Basnet"
+            class="w-40 h-40 rounded-full border-4 border-yellow-400 object-cover object-top mb-6 md:mb-0 md:ml-8">
+          <div class="text-center md:text-right">
+            <h3 class="text-2xl font-semibold text-white mb-2">Shahil Basnet</h3>
+            <p class="text-yellow-400 text-lg mb-3">AI & UX Designer</p>
+            <p class="text-gray-400 text-base">
+              Shahil created the AI tutor experience and designed a user-friendly UX to guide learners throughout their
+              journey.
+            </p>
+          </div>
         </div>
       </a>
 
     </div>
+
   </section>
 
   <!-- Footer -->
