@@ -85,6 +85,301 @@
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(255, 255, 255, 0.4);
         }
+        
+        <!-- Add these styles to your existing style section -->
+<style>
+    /* Chatbot Styles */
+    .chatbot-container {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 1000;
+        transition: all 0.3s ease;
+    }
+    
+    .chatbot-closed {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .chatbot-open {
+        width: 360px;
+        height: 500px;
+        border-radius: 18px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .chatbot-toggle {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        z-index: 1001;
+    }
+    
+    .chatbot-toggle:hover {
+        transform: scale(1.05);
+    }
+    
+    .chatbot-toggle svg {
+        width: 28px;
+        height: 28px;
+        color: white;
+    }
+    
+    .chatbot-window {
+        position: absolute;
+        bottom: 70px;
+        right: 0;
+        width: 360px;
+        height: 420px;
+        background: rgba(31, 41, 55, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 18px;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px) scale(0.9);
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .chatbot-open .chatbot-window {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+    }
+    
+    .chatbot-header {
+        padding: 16px;
+        background: rgba(31, 41, 55, 0.9);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+    }
+    
+    .chatbot-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+    }
+    
+    .chatbot-title {
+        font-weight: 600;
+        color: white;
+    }
+    
+    .chatbot-status {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #10B981;
+        margin-left: auto;
+    }
+    
+    .chatbot-messages {
+        flex: 1;
+        padding: 16px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .message {
+        margin-bottom: 8px;
+        max-width: 80%;
+        padding: 12px 16px;
+        border-radius: 18px;
+        line-height: 1.4;
+    }
+    
+    .bot-message {
+        align-self: flex-start;
+        background: rgba(59, 130, 246, 0.2);
+        border-radius: 18px 18px 18px 4px;
+        color: white;
+    }
+    
+    .user-message {
+        align-self: flex-end;
+        background: rgba(31, 41, 55, 0.8);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        border-radius: 18px 18px 4px 18px;
+        color: white;
+    }
+    
+    .chatbot-input-container {
+        padding: 16px;
+        background: rgba(31, 41, 55, 0.9);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        gap: 8px;
+    }
+    
+    .chatbot-input {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 24px;
+        padding: 12px 20px;
+        color: white;
+        outline: none;
+    }
+    
+    .chatbot-input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .chatbot-send {
+        background: #3B82F6;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: white;
+    }
+    
+    .chatbot-send:hover {
+        background: #2563EB;
+    }
+    
+    .chatbot-send:disabled {
+        background: #6B7280;
+        cursor: not-allowed;
+    }
+    
+    .typing-indicator {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 12px 16px;
+        background: rgba(59, 130, 246, 0.2);
+        border-radius: 18px;
+        align-self: flex-start;
+        max-width: 80px;
+    }
+    
+    .typing-dot {
+        width: 8px;
+        height: 8px;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        animation: typingAnimation 1.4s infinite ease-in-out;
+    }
+    
+    .typing-dot:nth-child(1) {
+        animation-delay: 0s;
+    }
+    
+    .typing-dot:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+    
+    .typing-dot:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+    
+    @keyframes typingAnimation {
+        0%, 60%, 100% {
+            transform: translateY(0);
+        }
+        30% {
+            transform: translateY(-5px);
+        }
+    }
+    
+    /* Markdown styling */
+    .markdown-content {
+        line-height: 1.5;
+    }
+    
+    .markdown-content h1, 
+    .markdown-content h2, 
+    .markdown-content h3 {
+        margin-top: 8px;
+        margin-bottom: 4px;
+        font-weight: 600;
+    }
+    
+    .markdown-content p {
+        margin-bottom: 8px;
+    }
+    
+    .markdown-content code {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9em;
+    }
+    
+    .markdown-content pre {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 12px;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 8px 0;
+    }
+    
+    .markdown-content pre code {
+        background: none;
+        padding: 0;
+    }
+    
+    .markdown-content ul, 
+    .markdown-content ol {
+        padding-left: 20px;
+        margin: 8px 0;
+    }
+    
+    .markdown-content li {
+        margin-bottom: 4px;
+    }
+    
+    .markdown-content a {
+        color: #3B82F6;
+        text-decoration: underline;
+    }
+    
+    .markdown-content blockquote {
+        border-left: 4px solid rgba(59, 130, 246, 0.5);
+        padding-left: 12px;
+        margin: 8px 0;
+        color: rgba(255, 255, 255, 0.8);
+    }
+</style>
+        
+        /* Animation for the toggle button when closed */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .chatbot-closed .chatbot-toggle {
+            animation: pulse 2s infinite;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
@@ -126,7 +421,7 @@
             <div class="md:hidden hidden">
                 <div class="px-2 pt-2 pb-3 space-y-1">
                     <a href="./index.html" class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">Home</a>
-                    <a href="./game.html" class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">Play Game</a>
+                    <a href="./topics.html" class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">Play Game</a>
                     <a href="./about.html" class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">About Us</a>
                     <a href="./contactus.html" class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">Contact Us</a>
                     <a href="./blog.html" class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">Blog</a>
@@ -284,7 +579,178 @@
         </div>
     </div>
 
+    <!-- Chatbot Container -->
+<div class="chatbot-container chatbot-closed" id="chatbotContainer">
+    <div class="chatbot-window">
+        <div class="chatbot-header">
+            <div class="chatbot-avatar">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+            </div>
+            <div class="chatbot-title">Tailwind Assistant</div>
+            <div class="chatbot-status"></div>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="message bot-message">
+                <div class="markdown-content">Hi there! I'm your Tailwind CSS assistant. How can I help you today?</div>
+            </div>
+        </div>
+        <div class="chatbot-input-container">
+            <input type="text" class="chatbot-input" id="chatInput" placeholder="Type your message...">
+            <button class="chatbot-send" id="chatSend">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="chatbot-toggle" id="chatbotToggle">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+        </svg>
+    </div>
+</div>
+
     <script src="./script.js"></script>
     <script src="./game.js"></script>
+    <script>
+    // Chatbot functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const chatbotContainer = document.getElementById('chatbotContainer');
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+        
+        // Toggle chatbot open/close
+        chatbotToggle.addEventListener('click', function() {
+            chatbotContainer.classList.toggle('chatbot-closed');
+            chatbotContainer.classList.toggle('chatbot-open');
+            if (chatbotContainer.classList.contains('chatbot-open')) {
+                chatInput.focus();
+            }
+        });
+        
+        // Send message function
+        function sendMessage() {
+            const userMsg = chatInput.value.trim();
+            if (!userMsg) return;
+            
+            // Add user message to chat
+            addMessage(userMsg, 'user');
+            
+            // Clear input
+            chatInput.value = '';
+            
+            // Show typing indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'typing-indicator';
+            typingIndicator.innerHTML = `
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            `;
+            chatMessages.appendChild(typingIndicator);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Disable send button while processing
+            chatSend.disabled = true;
+            
+            // Get current topic from page
+            const selectedTopic = document.getElementById('currentTopic')?.textContent || 'Tailwind CSS';
+            
+            // Send message to backend
+            fetch('https://joyr13384.app.n8n.cloud/webhook/98594f76-a4df-4e7c-a9f7-85167da4528a', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: userMsg, topic: selectedTopic })
+            })
+            .then(res => res.text())
+            .then(text => {
+                // Remove typing indicator
+                chatMessages.removeChild(typingIndicator);
+                
+                // Add bot response with markdown rendering
+                addMessage(text, 'bot');
+                
+                // Re-enable send button
+                chatSend.disabled = false;
+            })
+            .catch(error => {
+                // Remove typing indicator
+                chatMessages.removeChild(typingIndicator);
+                
+                // Show error message
+                addMessage('Sorry, I encountered an error. Please try again later.', 'bot');
+                
+                // Re-enable send button
+                chatSend.disabled = false;
+                console.error('Error:', error);
+            });
+        }
+        
+        // Add message to chat
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            if (sender === 'bot') {
+                // Convert markdown to HTML for bot messages
+                const markdownContent = document.createElement('div');
+                markdownContent.className = 'markdown-content';
+                markdownContent.innerHTML = parseMarkdown(text);
+                messageDiv.appendChild(markdownContent);
+            } else {
+                // User messages are plain text
+                messageDiv.textContent = text;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Simple markdown parser
+        function parseMarkdown(text) {
+            // Convert headers
+            text = text.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+            text = text.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+            text = text.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+            
+            // Convert bold and italic
+            text = text.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>');
+            text = text.replace(/\*(.*?)\*/gim, '<em>$1</em>');
+            
+            // Convert code blocks
+            text = text.replace(/```([\s\S]*?)```/gim, '<pre><code>$1</code></pre>');
+            text = text.replace(/`(.*?)`/gim, '<code>$1</code>');
+            
+            // Convert links
+            text = text.replace(/\[([^\[]+)\]\(([^\)]+)\)/gim, '<a href="$2" target="_blank">$1</a>');
+            
+            // Convert paragraphs
+            text = text.replace(/(\n\n|\r\r|\r\n\r\n)/gim, '</p><p>');
+            text = text.replace(/(\n|\r|\r\n)/gim, '<br>');
+            text = '<p>' + text + '</p>';
+            
+            // Convert lists
+            text = text.replace(/^\s*\- (.*$)/gim, '<li>$1</li>');
+            text = text.replace(/(<li>.*<\/li>)/gim, '<ul>$1</ul>');
+            
+            // Convert blockquotes
+            text = text.replace(/^>\s(.*$)/gim, '<blockquote>$1</blockquote>');
+            
+            return text;
+        }
+        
+        // Event listeners
+        chatSend.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    });
+</script>
 </body>
 </html>
