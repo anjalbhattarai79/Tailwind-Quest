@@ -178,6 +178,7 @@ class TailwindLearningGame {
         const hintBtn = document.getElementById('hintBtn');
         const nextChallengeBtn = document.getElementById('nextChallengeBtn');
         
+        
         if (checkAnswerBtn) checkAnswerBtn.addEventListener('click', () => this.checkAnswer());
         if (hintBtn) hintBtn.addEventListener('click', () => this.showHint());
         if (nextChallengeBtn) nextChallengeBtn.addEventListener('click', () => this.nextChallenge());
@@ -253,7 +254,7 @@ class TailwindLearningGame {
 
     showHomeScreen() {
         // Redirect to home page
-        window.location.href = 'index.html';
+        window.location.href = './topics.html';
     }
 
     resetTopicSelection() {
@@ -368,7 +369,8 @@ class TailwindLearningGame {
 
     showHint() {
         const challenge = this.learningPath[this.currentTopic].challenges[this.currentChallengeIndex];
-        alert(`💡 Hint: ${challenge.hint}`);
+        const hintArea = document.getElementById('targetHint');
+        hintArea.classList.remove('hidden');
     }
 
     nextChallenge() {
