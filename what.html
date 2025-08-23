@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Unadd Guide</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 30px;
+        }
+        .code {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            margin: 15px 0;
+        }
+        .workflow {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .step {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            width: 30%;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .step-number {
+            background: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+        }
+        .important {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .command-summary {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Git Unadd Guide</h1>
+    
+    <p>When you've added files to Git's staging area with <code>git add</code> but want to remove them from the staging area before committing, you need to "unadd" them.</p>
+    
+    <h2>Git Workflow</h2>
+    <div class="workflow">
+        <div class="step">
+            <div class="step-number">1</div>
+            <h3>Working Directory</h3>
+            <p>Your files before staging</p>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <h3>Staging Area</h3>
+            <p>Files added with <code>git add</code></p>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <h3>Repository</h3>
+            <p>Files committed with <code>git commit</code></p>
+        </div>
+    </div>
+    
+    <p>Unadding files moves them from the staging area back to the working directory.</p>
+    
+    <h2>Commands to Unadd Files</h2>
+    
+    <div class="command-summary">
+        <table>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>When to Use</th>
+            </tr>
+            <tr>
+                <td><code>git reset HEAD &lt;file&gt;</code></td>
+                <td>Unstages a specific file</td>
+                <td>When you want to remove one file from staging</td>
+            </tr>
+            <tr>
+                <td><code>git reset HEAD .</code></td>
+                <td>Unstages all files in current directory</td>
+                <td>When you want to remove all files in current folder from staging</td>
+            </tr>
+            <tr>
+                <td><code>git reset HEAD</code></td>
+                <td>Unstages all files</td>
+                <td>When you want to remove all files from staging</td>
+            </tr>
+            <tr>
+                <td><code>git restore --staged &lt;file&gt;</code></td>
+                <td>Unstages a specific file (Git 2.23+)</td>
+                <td>Newer alternative to <code>git reset</code></td>
+            </tr>
+        </table>
+    </div>
+    
+    <h2>Examples</h2>
+    
+    <div class="code">
+# Unadd a specific file<br>
+git reset HEAD index.html<br><br>
+# Unadd multiple files<br>
+git reset HEAD style.css script.js<br><br>
+# Unadd all files in current directory<br>
+git reset HEAD .<br><br>
+# Unadd all files in repository<br>
+git reset HEAD<br><br>
+# Using git restore (Git 2.23+)<br>
+git restore --staged image.jpg
+    </div>
+    
+    <div class="important">
+        <p><strong>Important:</strong> <code>git reset</code> doesn't delete your files or changes. It only removes them from the staging area. Your modifications will still be present in your working directory.</p>
+    </div>
+    
+    <h2>Checking Status</h2>
+    <p>Always use <code>git status</code> to see what files are staged before and after unadding:</p>
+    
+    <div class="code">
+git status
+    </div>
+    
+    <p>This will show you which files are staged (ready to be committed) and which are not staged.</p>
+
+</body>
+</html>

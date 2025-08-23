@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailwind Quest - Choose Your Learning Path</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'quest-primary': '#3B82F6',
+                        'quest-secondary': '#10B981',
+                        'quest-accent': '#F59E0B',
+                        'quest-dark': '#1F2937',
+                        'quest-light': '#F3F4F6'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .topic-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .topic-card.selected {
+            border-color: #3B82F6;
+            background: rgba(59, 130, 246, 0.1);
+        }
+        .progress-ring {
+            transition: stroke-dashoffset 0.5s ease;
+        }
+        .category-header {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-quest-dark/80 backdrop-blur-sm border-b border-gray-700 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-2xl font-bold text-quest-primary">🎨 Tailwind Quest</h1>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="./index.html" class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">Home</a>
+                    <a href="./topics.html" class="text-quest-primary font-medium">Learn</a>
+                    <a href="./about.html" class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">About Us</a>
+                    <a href="./contactus.html" class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">Contact Us</a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-4">
+                    <span class="text-sm text-gray-300">Level: <span class="font-bold text-quest-secondary">1</span></span>
+                    <span class="text-sm text-gray-300">Score: <span class="font-bold text-quest-accent">0</span></span>
+                    <span class="text-sm text-gray-300">Concepts: <span class="font-bold text-purple-400">0</span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Banner -->
+    <div class="bg-gradient-to-r from-quest-primary to-quest-secondary py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Choose Your Learning Path</h1>
+            <p class="text-xl text-gray-100 max-w-3xl mx-auto">
+                Select a topic to start your Tailwind CSS journey. Master concepts through interactive challenges.
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Progress Summary -->
+        <div class="bg-quest-dark rounded-xl p-6 mb-12 border border-gray-700">
+            <h2 class="text-2xl font-bold mb-6 text-center">Your Learning Progress</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center relative">
+                        <svg class="w-24 h-24" viewBox="0 0 36 36">
+                            <path d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                                fill="none" stroke="#374151" stroke-width="3" />
+                            <path d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                                fill="none" stroke="#10B981" stroke-width="3" 
+                                stroke-dasharray="70, 100" class="progress-ring" />
+                        </svg>
+                        <span class="absolute text-xl font-bold">25%</span>
+                    </div>
+                    <h3 class="text-lg font-semibold mt-2">Overall Completion</h3>
+                </div>
+                
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-quest-accent">8</div>
+                    <h3 class="text-lg font-semibold mt-2">Concepts Mastered</h3>
+                    <p class="text-sm text-gray-400">Out of 32 total</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-quest-primary">12</div>
+                    <h3 class="text-lg font-semibold mt-2">Challenges Completed</h3>
+                    <p class="text-sm text-gray-400">Keep going!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Topics Grid -->
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold mb-8 text-center">Learning Topics</h2>
+            
+            <!-- Foundations Category -->
+            <div class="category-header rounded-xl p-5 mb-6">
+                <h3 class="text-2xl font-bold flex items-center">
+                    <span class="bg-white text-quest-primary p-2 rounded-lg mr-3">🔰</span>
+                    Foundation Concepts
+                </h3>
+                <p class="text-gray-100 mt-2">Start with the basics to build a solid understanding of Tailwind CSS</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                <div class="topic-card rounded-xl p-6 border border-gray-700">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">📏</div>
+                        <h4 class="font-bold text-lg mb-2">Spacing & Layout</h4>
+                        <div class="text-sm text-gray-300 mb-3">Padding, margin, sizing</div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs text-gray-400 mb-1">
+                            <span>Progress</span>
+                            <span>3/4</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-quest-secondary h-2 rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <button class="w-full bg-quest-secondary hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                        Continue Learning
+                    </button>
+                </div>
+                
+                <div class="topic-card rounded-xl p-6 border border-gray-700">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">🎨</div>
+                        <h4 class="font-bold text-lg mb-2">Colors & Backgrounds</h4>
+                        <div class="text-sm text-gray-300 mb-3">Text, bg, border colors</div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs text-gray-400 mb-1">
+                            <span>Progress</span>
+                            <span>2/4</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-quest-secondary h-2 rounded-full" style="width: 50%"></div>
+                        </div>
+                    </div>
+                    <button class="w-full bg-quest-secondary hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                        Continue Learning
+                    </button>
+                </div>
+                
+                <div class="topic-card rounded-xl p-6 border border-gray-700">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">✨</div>
+                        <h4 class="font-bold text-lg mb-2">Typography</h4>
+                        <div class="text-sm text-gray-300 mb-3">Text styling & formatting</div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs text-gray-400 mb-1">
+                            <span>Progress</span>
+                            <span>1/4</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-quest-secondary h-2 rounded-full" style="width: 25%"></div>
+                        </div>
+                    </div>
+                    <button class="w-full bg-quest-secondary hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                        Start Learning
+                    </button>
+                </div>
+                
+                <div class="topic-card rounded-xl p-6 border border-gray-700">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">🔄</div>
+                        <h4 class="font-bold text-lg mb-2">Transitions & Animation</h4>
+                        <div class="text-sm text-gray-300 mb-3">Hover effects, transitions</div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs text-gray-400 mb-1">
+                            <span>Progress</span>
+                            <span>0/4</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-gray-600 h-2 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <button class="w-full bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                        Start Learning
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Layout Category -->
+            <div class="category-header rounded-xl p-5 mb-6">
+                <h3 class="text-2xl font-bold flex items-center">
+                    <span class="bg-white text-quest-primary p-2 rounded-lg mr-3">📐</span>
+                    Layout & Structure
+                </h3>
+                <p class="text-gray-100 mt-2">Learn how to create responsive layouts and structure your designs</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                <div class="topic-card rounded-xl p-6 border border-gray-700">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">📦</div>
+                        <h4 class="font-bold text-lg mb-2">Flexbox</h4>
+                        <div class="text-sm text-gray-300 mb-3">Alignment, direction, wrapping</div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs text-gray-400 mb-1">
+                            <span>Progress</span>
+                            <span>0/5</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-gray-600 h-2 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <button class="w-full bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                        Start Learning
+                    </button>
+                </div>
+                
+                <div class="topic-card rounded-xl p-6 border border-gray-700">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">🔲</div>
+                        <h4 class="font-bold text-lg mb-2">CSS Grid</h4>
+                        <div class="text-sm text-gray-300 mb-3">Columns, rows, placement</div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs text-gray-400 mb-1">
+                            <span>Progress</span>
+                            <span>0/5</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-gray-600 h-2 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <button class="w-full bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                        Start Learning
+                    </button>
+                </div>
+                
+                <div class="topic-card rounded-xl p-6 border border-gray-700">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">📱</div>
+                        <h4 class="font-bold text-lg mb-2">Responsive Design</h4>
+                        <div class="text-sm text-gray-300 mb-3">Breakpoints, mobile-first</div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs text-gray-400 mb-1">
+                            <span>Progress</span>
+                            <span>0/5</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-gray-600 h-2 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <button class="w-full bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                        Start Learning
+                    </button>
+                </div>
+                
+                <div class="topic-card rounded-xl p-6 border border-gray-700">
+                    <div class="text-center mb-4">
+                        <div class="text-4xl mb-2">🧩</div>
+                        <h4 class="font-bold text-lg mb-2">Component Layouts</h4>
+                        <div class="text-sm text-gray-300 mb-3">Cards, navbars, forms</div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs text-gray-400 mb-1">
+                            <span>Progress</span>
+                            <span>0/5</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-gray-600 h-2 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <button class="w-full bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                        Start Learning
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendation Section -->
+        <div class="bg-quest-dark rounded-xl p-8 border border-gray-700">
+            <h2 class="text-2xl font-bold mb-4">Recommended Next Step</h2>
+            <div class="flex flex-col md:flex-row items-center md:items-start">
+                <div class="flex-shrink-0 mb-4 md:mb-0 md:mr-6">
+                    <div class="w-16 h-16 bg-quest-secondary rounded-full flex items-center justify-center text-2xl">
+                        📏
+                    </div>
+                </div>
+                <div class="flex-grow">
+                    <h3 class="text-xl font-semibold mb-2">Spacing & Layout</h3>
+                    <p class="text-gray-300 mb-4">
+                        Based on your current progress, we recommend continuing with Spacing & Layout concepts. 
+                        You've completed 75% of this topic - finish it to unlock the next level!
+                    </p>
+                    <button class="bg-quest-secondary hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+                        Continue Learning
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple topic selection functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const topicCards = document.querySelectorAll('.topic-card');
+            
+            topicCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove selection from all cards
+                    topicCards.forEach(c => c.classList.remove('selected'));
+                    // Add selection to clicked card
+                    this.classList.add('selected');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
