@@ -5,6 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GameDev Learn - Master Web Development</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'quest-primary': '#3B82F6',
+                        'quest-secondary': '#10B981',
+                        'quest-accent': '#F59E0B',
+                        'quest-dark': '#1F2937',
+                        'quest-light': '#F3F4F6'
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -89,7 +115,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center space-x-4">
-                    <h1 class="text-2xl font-bold text-quest-primary">🎨 Tailwind Quest</h1>
+                    <img src="./img/logo.png" alt="Logo" class="h-8 inline-block rounded-full">
+                    <h1 class="text-2xl font-bold">Tailwind Quest</h1>
                 </div>
                 
                 <!-- Navigation Links -->
@@ -508,5 +535,50 @@
         </div>
     </main>
     
+
+    <script>
+        // Function to scroll to a section
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                
+                // Add active class to highlight the section
+                element.classList.add('active-card');
+                
+                // Remove the active class after some time
+                setTimeout(() => {
+                    element.classList.remove('active-card');
+                }, 2000);
+            }
+        }
+
+        // Simple JavaScript for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pulse animation for CTA button
+            const ctaButton = document.querySelector('.pulse');
+            
+            setInterval(() => {
+                ctaButton.classList.toggle('pulse');
+            }, 4000);
+            
+            // Code block copy functionality
+            const codeBlocks = document.querySelectorAll('.code-block');
+            
+            codeBlocks.forEach(block => {
+                block.addEventListener('click', () => {
+                    const code = block.querySelector('code').innerText;
+                    navigator.clipboard.writeText(code).then(() => {
+                        const originalHtml = block.innerHTML;
+                        block.innerHTML = '<p class="text-green-400 text-center">Code copied to clipboard!</p>';
+                        
+                        setTimeout(() => {
+                            block.innerHTML = originalHtml;
+                        }, 2000);
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
