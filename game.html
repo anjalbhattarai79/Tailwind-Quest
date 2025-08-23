@@ -151,126 +151,125 @@
                 </div>
 
                 <!-- Game Area - Split Layout -->
-                <!-- Game Area - Split Layout -->
-<div class="flex-1 flex flex-col lg:flex-row overflow-hidden">
-    <!-- Left Panel - Learning Area -->
-    <div class="flex-1 p-4 overflow-y-auto">
-        <div class="quest-card rounded-lg p-4 md:p-6 border border-white/20 h-full flex flex-col">
-            <div id="learningArea" class="flex-1 flex flex-col">
-                <div class="mb-4 md:mb-6">
-                    <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4">🎯 Challenge: <span id="challengeTitle">Add Padding</span></h3>
-                    <p class="text-gray-300 mb-4 md:mb-6" id="challengeDescription">Add the correct Tailwind class to give this box some padding.</p>
-                </div>
-                
-                <!-- Code Editor -->
-                <div class="mb-4 md:mb-6">
-                    <div class="text-left mb-2">
-                        <label class="text-sm font-semibold">HTML Code:</label>
+                <div class="flex flex-col lg:flex-row gap-6">
+                    <!-- Left Panel - Learning Area -->
+                    <div class="w-full lg:w-2/4">
+                        <div class="quest-card rounded-lg p-6 border border-white/20 min-h-200 h-full flex flex-col">
+                            <div id="learningArea" class="flex-1 flex flex-col">
+                                <div class="mb-4 md:mb-6">
+                                    <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4">🎯 Challenge: <span id="challengeTitle">Add Padding</span></h3>
+                                    <p class="text-gray-300 mb-4 md:mb-6" id="challengeDescription">Add the correct Tailwind class to give this box some padding.</p>
+                                </div>
+                                
+                                <!-- Code Editor -->
+                                <div class="mb-4 md:mb-6">
+                                    <div class="text-left mb-2">
+                                        <label class="text-sm font-semibold">HTML Code:</label>
+                                    </div>
+                                    <div class="code-preview text-left">
+                                        <div class="text-gray-400 text-sm mb-2">// Edit this line:</div>
+                                        <div class="bg-gray-800 p-3 rounded">
+                                            <span class="text-gray-300">&lt;div class="</span>
+                                            <input type="text" id="codeInput" placeholder="Enter Tailwind class..." 
+                                                class="bg-transparent border-none outline-none text-quest-accent font-mono text-lg w-32 md:w-48">
+                                            <span class="text-gray-300">"&gt;</span>
+                                            <span class="text-gray-400">Box content</span>
+                                            <span class="text-gray-300">&lt;/div&gt;</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Challenge Controls -->
+                                <div class="mt-auto pt-4">
+                                    <div class="flex flex-wrap justify-center gap-2">
+                                        <button id="checkAnswerBtn" class="bg-quest-secondary hover:bg-green-600 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-lg transition-colors">
+                                            Check Answer
+                                        </button>
+                                        <button id="hintBtn" class="bg-quest-accent hover:bg-yellow-600 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-lg transition-colors">
+                                            Get Hint
+                                        </button>
+                                        <button id="nextChallengeBtn" class="bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-lg transition-colors hidden">
+                                            Next Challenge
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="code-preview text-left">
-                        <div class="text-gray-400 text-sm mb-2">// Edit this line:</div>
-                        <div class="bg-gray-800 p-3 rounded">
-                            <span class="text-gray-300">&lt;div class="</span>
-                            <input type="text" id="codeInput" placeholder="Enter Tailwind class..." 
-                                   class="bg-transparent border-none outline-none text-quest-accent font-mono text-lg w-32 md:w-48">
-                            <span class="text-gray-300">"&gt;</span>
-                            <span class="text-gray-400">Box content</span>
-                            <span class="text-gray-300">&lt;/div&gt;</span>
+
+                    <!-- Right Panel -->
+                    <div class="w-full lg:w-2/4">
+                        <div class="quest-card rounded-lg p-4 md:p-6 border border-white/20 h-full">
+                            <!-- Target Preview -->
+                            <div class="mt-6">
+                                <div class="text-left mb-4">
+                                    <label class="text-lg font-semibold">Target Result:</label>
+                                </div>
+                                <div class="bg-white rounded-lg p-4 min-h-[200px] border-2 border-dashed border-green-400 flex items-center justify-center">
+                                    <div id="targetElement" class="bg-gray-200 text-gray-800 p-4 rounded">
+                                        Box content
+                                    </div>
+                                </div>
+                                <div class="text-xs text-gray-400 mt-2 text-center" id="targetHint">
+                                    Try to match this appearance
+                                </div>
+                            </div>
+                            <!--Live Preview -->
+                            <div class="text-left mb-4">
+                                <label class="text-lg font-semibold">Live Preview:</label>
+                            </div>
+                            <div id="previewContainer" class="bg-white rounded-lg p-4 min-h-[200px] md:min-h-[300px] border-2 border-dashed border-gray-400 flex items-center justify-center">
+                                <div id="previewElement" class="bg-gray-200 text-gray-800 p-2 rounded">
+                                    Box content
+                                </div>
+                            </div>
+                    
+                            <!-- Progress Stats -->
+                            <div class="mt-6">
+                                <h3 class="text-lg font-bold mb-3">📊 Quick Stats</h3>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="text-center p-2 bg-quest-dark/30 rounded">
+                                        <div class="text-xl font-bold text-quest-accent" id="completedChallenges">0</div>
+                                        <div class="text-xs text-gray-300">Completed</div>
+                                    </div>
+                                    <div class="text-center p-2 bg-quest-dark/30 rounded">
+                                        <div class="text-xl font-bold text-quest-primary" id="conceptsLearned">0</div>
+                                        <div class="text-xs text-gray-300">Concepts</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Challenge Controls -->
-                <div class="mt-auto pt-4">
-                    <div class="flex flex-wrap justify-center gap-2">
-                        <button id="checkAnswerBtn" class="bg-quest-secondary hover:bg-green-600 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-lg transition-colors">
-                            Check Answer
-                        </button>
-                        <button id="hintBtn" class="bg-quest-accent hover:bg-yellow-600 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-lg transition-colors">
-                            Get Hint
-                        </button>
-                        <button id="nextChallengeBtn" class="bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-lg transition-colors hidden">
-                            Next Challenge
-                        </button>
+                <!-- Progress Section at Bottom -->
+                <div class="p-4 bg-quest-dark/30 border-t border-white/20">
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+                        <div class="flex items-center space-x-4">
+                            <h3 class="text-lg font-bold">Overall Progress</h3>
+                            <span id="overallProgress" class="text-quest-primary font-bold">0%</span>
+                        </div>
+                        
+                        <div class="w-full md:w-64 lg:w-96">
+                            <div class="w-full bg-gray-700 rounded-full h-3">
+                                <div id="progressBar" class="bg-quest-primary h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-6">
+                            <div class="text-center">
+                                <div class="text-sm text-gray-300">Accuracy</div>
+                                <div id="accuracy" class="text-xl font-bold text-quest-secondary">0%</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-sm text-gray-300">Streak</div>
+                                <div id="streak" class="text-xl font-bold text-purple-400">0</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Right Panel -->
-    <div class="w-full lg:w-1/2 xl:w-2/5 p-4 overflow-y-auto">
-        <div class="quest-card rounded-lg p-4 md:p-6 border border-white/20 h-full">
-            <!-- Target Preview -->
-            <div class="mt-6">
-                <div class="text-left mb-4">
-                    <label class="text-lg font-semibold">Target Result:</label>
                 </div>
-                <div class="bg-white rounded-lg p-4 min-h-[100px] border-2 border-dashed border-green-400 flex items-center justify-center">
-                    <div id="targetElement" class="bg-gray-200 text-gray-800 p-4 rounded">
-                        Box content
-                    </div>
-                </div>
-                <div class="text-xs text-gray-400 mt-2 text-center" id="targetHint">
-                    Try to match this appearance
-                </div>
-            </div>
-            <!--Live Preview -->
-            <div class="text-left mb-4">
-                <label class="text-lg font-semibold">Live Preview:</label>
-            </div>
-            <div id="previewContainer" class="bg-white rounded-lg p-4 min-h-[200px] md:min-h-[300px] border-2 border-dashed border-gray-400 flex items-center justify-center">
-                <div id="previewElement" class="bg-gray-200 text-gray-800 p-2 rounded">
-                    Box content
-                </div>
-            </div>
-    
-            <!-- Progress Stats -->
-            <div class="mt-6">
-                <h3 class="text-lg font-bold mb-3">📊 Quick Stats</h3>
-                <div class="grid grid-cols-2 gap-3">
-                    <div class="text-center p-2 bg-quest-dark/30 rounded">
-                        <div class="text-xl font-bold text-quest-accent" id="completedChallenges">0</div>
-                        <div class="text-xs text-gray-300">Completed</div>
-                    </div>
-                    <div class="text-center p-2 bg-quest-dark/30 rounded">
-                        <div class="text-xl font-bold text-quest-primary" id="conceptsLearned">0</div>
-                        <div class="text-xs text-gray-300">Concepts</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Progress Section at Bottom -->
-<div class="p-4 bg-quest-dark/30 border-t border-white/20">
-    <div class="max-w-4xl mx-auto">
-        <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-            <div class="flex items-center space-x-4">
-                <h3 class="text-lg font-bold">Overall Progress</h3>
-                <span id="overallProgress" class="text-quest-primary font-bold">0%</span>
-            </div>
-            
-            <div class="w-full md:w-64 lg:w-96">
-                <div class="w-full bg-gray-700 rounded-full h-3">
-                    <div id="progressBar" class="bg-quest-primary h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
-                </div>
-            </div>
-            
-            <div class="flex items-center space-x-6">
-                <div class="text-center">
-                    <div class="text-sm text-gray-300">Accuracy</div>
-                    <div id="accuracy" class="text-xl font-bold text-quest-secondary">0%</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-sm text-gray-300">Streak</div>
-                    <div id="streak" class="text-xl font-bold text-purple-400">0</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
             </div>
         </div>
     </div>
