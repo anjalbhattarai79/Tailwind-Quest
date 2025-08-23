@@ -34,9 +34,6 @@
             border-color: #3B82F6;
             background: rgba(59, 130, 246, 0.1);
         }
-        .progress-ring {
-            transition: stroke-dashoffset 0.5s ease;
-        }
         .category-header {
             background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
         }
@@ -60,9 +57,9 @@
                 </div>
                 
                 <div class="hidden md:flex items-center space-x-4">
-                    <span class="text-sm text-gray-300">Level: <span class="font-bold text-quest-secondary">1</span></span>
-                    <span class="text-sm text-gray-300">Score: <span class="font-bold text-quest-accent">0</span></span>
-                    <span class="text-sm text-gray-300">Concepts: <span class="font-bold text-purple-400">0</span></span>
+                    <span class="text-sm text-gray-300">Level: <span id="level" class="font-bold text-quest-secondary">1</span></span>
+                    <span class="text-sm text-gray-300">Score: <span id="score" class="font-bold text-quest-accent">0</span></span>
+                    <span class="text-sm text-gray-300">Concepts: <span id="concepts" class="font-bold text-purple-400">0</span></span>
                 </div>
             </div>
         </div>
@@ -130,7 +127,7 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                <div class="topic-card rounded-xl p-6 border border-gray-700">
+                <div class="topic-card quest-card rounded-xl p-6 border border-gray-700" data-topic="Spacing Basics">
                     <div class="text-center mb-4">
                         <div class="text-4xl mb-2">📏</div>
                         <h4 class="font-bold text-lg mb-2">Spacing & Layout</h4>
@@ -145,12 +142,12 @@
                             <div class="bg-quest-secondary h-2 rounded-full" style="width: 75%"></div>
                         </div>
                     </div>
-                    <button class="w-full bg-quest-secondary hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                    <button class="w-full bg-quest-secondary hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors start-topic-btn">
                         Continue Learning
                     </button>
                 </div>
                 
-                <div class="topic-card rounded-xl p-6 border border-gray-700">
+                <div class="topic-card quest-card rounded-xl p-6 border border-gray-700" data-topic="Colors & Backgrounds">
                     <div class="text-center mb-4">
                         <div class="text-4xl mb-2">🎨</div>
                         <h4 class="font-bold text-lg mb-2">Colors & Backgrounds</h4>
@@ -165,12 +162,12 @@
                             <div class="bg-quest-secondary h-2 rounded-full" style="width: 50%"></div>
                         </div>
                     </div>
-                    <button class="w-full bg-quest-secondary hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                    <button class="w-full bg-quest-secondary hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors start-topic-btn">
                         Continue Learning
                     </button>
                 </div>
                 
-                <div class="topic-card rounded-xl p-6 border border-gray-700">
+                <div class="topic-card quest-card rounded-xl p-6 border border-gray-700" data-topic="Layout & Flexbox">
                     <div class="text-center mb-4">
                         <div class="text-4xl mb-2">✨</div>
                         <h4 class="font-bold text-lg mb-2">Typography</h4>
@@ -185,12 +182,12 @@
                             <div class="bg-quest-secondary h-2 rounded-full" style="width: 25%"></div>
                         </div>
                     </div>
-                    <button class="w-full bg-quest-secondary hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                    <button class="w-full bg-quest-secondary hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors start-topic-btn">
                         Start Learning
                     </button>
                 </div>
                 
-                <div class="topic-card rounded-xl p-6 border border-gray-700">
+                <div class="topic-card quest-card rounded-xl p-6 border border-gray-700" data-topic="Responsive Design">
                     <div class="text-center mb-4">
                         <div class="text-4xl mb-2">🔄</div>
                         <h4 class="font-bold text-lg mb-2">Transitions & Animation</h4>
@@ -205,7 +202,7 @@
                             <div class="bg-gray-600 h-2 rounded-full" style="width: 0%"></div>
                         </div>
                     </div>
-                    <button class="w-full bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                    <button class="w-full bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors start-topic-btn">
                         Start Learning
                     </button>
                 </div>
@@ -221,7 +218,7 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                <div class="topic-card rounded-xl p-6 border border-gray-700">
+                <div class="topic-card quest-card rounded-xl p-6 border border-gray-700" data-topic="Layout & Flexbox">
                     <div class="text-center mb-4">
                         <div class="text-4xl mb-2">📦</div>
                         <h4 class="font-bold text-lg mb-2">Flexbox</h4>
@@ -236,12 +233,12 @@
                             <div class="bg-gray-600 h-2 rounded-full" style="width: 0%"></div>
                         </div>
                     </div>
-                    <button class="w-full bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                    <button class="w-full bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors start-topic-btn">
                         Start Learning
                     </button>
                 </div>
                 
-                <div class="topic-card rounded-xl p-6 border border-gray-700">
+                <div class="topic-card quest-card rounded-xl p-6 border border-gray-700" data-topic="Layout & Flexbox">
                     <div class="text-center mb-4">
                         <div class="text-4xl mb-2">🔲</div>
                         <h4 class="font-bold text-lg mb-2">CSS Grid</h4>
@@ -256,12 +253,12 @@
                             <div class="bg-gray-600 h-2 rounded-full" style="width: 0%"></div>
                         </div>
                     </div>
-                    <button class="w-full bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                    <button class="w-full bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors start-topic-btn">
                         Start Learning
                     </button>
                 </div>
                 
-                <div class="topic-card rounded-xl p-6 border border-gray-700">
+                <div class="topic-card quest-card rounded-xl p-6 border border-gray-700" data-topic="Responsive Design">
                     <div class="text-center mb-4">
                         <div class="text-4xl mb-2">📱</div>
                         <h4 class="font-bold text-lg mb-2">Responsive Design</h4>
@@ -276,12 +273,12 @@
                             <div class="bg-gray-600 h-2 rounded-full" style="width: 0%"></div>
                         </div>
                     </div>
-                    <button class="w-full bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                    <button class="w-full bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors start-topic-btn">
                         Start Learning
                     </button>
                 </div>
                 
-                <div class="topic-card rounded-xl p-6 border border-gray-700">
+                <div class="topic-card quest-card rounded-xl p-6 border border-gray-700" data-topic="Layout & Flexbox">
                     <div class="text-center mb-4">
                         <div class="text-4xl mb-2">🧩</div>
                         <h4 class="font-bold text-lg mb-2">Component Layouts</h4>
@@ -296,7 +293,7 @@
                             <div class="bg-gray-600 h-2 rounded-full" style="width: 0%"></div>
                         </div>
                     </div>
-                    <button class="w-full bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                    <button class="w-full bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors start-topic-btn">
                         Start Learning
                     </button>
                 </div>
@@ -318,7 +315,7 @@
                         Based on your current progress, we recommend continuing with Spacing & Layout concepts. 
                         You've completed 75% of this topic - finish it to unlock the next level!
                     </p>
-                    <button class="bg-quest-secondary hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+                    <button class="bg-quest-secondary hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition-colors start-topic-btn" data-topic="Spacing Basics">
                         Continue Learning
                     </button>
                 </div>
@@ -327,10 +324,12 @@
     </div>
 
     <script>
-        // Simple topic selection functionality
+        // Topic selection functionality
         document.addEventListener('DOMContentLoaded', function() {
             const topicCards = document.querySelectorAll('.topic-card');
+            const startButtons = document.querySelectorAll('.start-topic-btn');
             
+            // Handle topic card selection
             topicCards.forEach(card => {
                 card.addEventListener('click', function() {
                     // Remove selection from all cards
@@ -339,6 +338,36 @@
                     this.classList.add('selected');
                 });
             });
+            
+            // Handle start learning buttons
+            startButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent triggering the card click event
+                    
+                    let topic;
+                    // If button is inside a topic card, use that topic
+                    if (this.closest('.topic-card')) {
+                        topic = this.closest('.topic-card').getAttribute('data-topic');
+                    } 
+                    // If button has its own data-topic attribute, use that
+                    else if (this.hasAttribute('data-topic')) {
+                        topic = this.getAttribute('data-topic');
+                    }
+                    
+                    if (topic) {
+                        // Redirect to game page with topic parameter
+                        window.location.href = `game.html?topic=${encodeURIComponent(topic)}`;
+                    }
+                });
+            });
+            
+            // Quick start button functionality
+            const quickStartBtn = document.getElementById('quickStartBtn');
+            if (quickStartBtn) {
+                quickStartBtn.addEventListener('click', function() {
+                    window.location.href = `game.html?topic=Spacing%20Basics`;
+                });
+            }
         });
     </script>
 </body>
