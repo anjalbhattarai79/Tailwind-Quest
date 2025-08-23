@@ -6,6 +6,8 @@
     <meta name="author" content="Anjal Bhattarai,Ishan Maharjan,Shahil Basnet,Sushan Pudasaini">
     <meta name="description" content="A website to learn different features of css">
     <meta name="keywords" content="css, tailwindcss, tailwind, js, SEO">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.0.6/markdown-it.min.css">
+    <link rel="stylesheet" href="./styles.css">
     <title>Tailwind Quest - Gameplay</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -23,11 +25,30 @@
                         'bounce-slow': 'bounce 2s infinite',
                         'pulse-slow': 'pulse 3s infinite',
                         'float': 'float 3s ease-in-out infinite',
+                        'tada': 'tada 0.8s ease-in-out',
+                        'celebrate': 'celebrate 1.5s ease-out',
+                        'confetti': 'confetti 1.5s ease-out forwards',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0px)' },
                             '50%': { transform: 'translateY(-10px)' },
+                        },
+                        tada: {
+                            '0%': { transform: 'scale(1)' },
+                            '10%, 20%': { transform: 'scale(0.9) rotate(-3deg)' },
+                            '30%, 50%, 70%, 90%': { transform: 'scale(1.1) rotate(3deg)' },
+                            '40%, 60%, 80%': { transform: 'scale(1.1) rotate(-3deg)' },
+                            '100%': { transform: 'scale(1) rotate(0)' },
+                        },
+                        celebrate: {
+                            '0%': { transform: 'translateY(0) scale(1)', opacity: '1' },
+                            '50%': { transform: 'translateY(-20px) scale(1.2)', opacity: '0.8' },
+                            '100%': { transform: 'translateY(-40px) scale(1.5)', opacity: '0' },
+                        },
+                        confetti: {
+                            '0%': { transform: 'translateY(0) rotate(0)', opacity: '1' },
+                            '100%': { transform: 'translateY(100vh) rotate(720deg)', opacity: '0' },
                         }
                     }
                 }
@@ -86,297 +107,171 @@
             background: rgba(255, 255, 255, 0.4);
         }
         
-       
-    /* Chatbot Styles */
-    .chatbot-container {
-        position: fixed;
-        bottom: 24px;
-        right: 24px;
-        z-index: 1000;
-        transition: all 0.3s ease;
-    }
-    
-    .chatbot-closed {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .chatbot-open {
-        width: 360px;
-        height: 500px;
-        border-radius: 18px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    }
-    
-    .chatbot-toggle {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
-        z-index: 1001;
-    }
-    
-    .chatbot-toggle:hover {
-        transform: scale(1.05);
-    }
-    
-    .chatbot-toggle svg {
-        width: 28px;
-        height: 28px;
-        color: white;
-    }
-    
-    .chatbot-window {
-        position: absolute;
-        bottom: 70px;
-        right: 0;
-        width: 360px;
-        height: 420px;
-        background: rgba(31, 41, 55, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 18px;
-        overflow: hidden;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(10px) scale(0.9);
-        transition: all 0.3s ease;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .chatbot-open .chatbot-window {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0) scale(1);
-    }
-    
-    .chatbot-header {
-        padding: 16px;
-        background: rgba(31, 41, 55, 0.9);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        display: flex;
-        align-items: center;
-    }
-    
-    .chatbot-avatar {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 12px;
-    }
-    
-    .chatbot-title {
-        font-weight: 600;
-        color: white;
-    }
-    
-    .chatbot-status {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: #10B981;
-        margin-left: auto;
-    }
-    
-    .chatbot-messages {
-        flex: 1;
-        padding: 16px;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-    
-    .message {
-        margin-bottom: 8px;
-        max-width: 80%;
-        padding: 12px 16px;
-        border-radius: 18px;
-        line-height: 1.4;
-    }
-    
-    .bot-message {
-        align-self: flex-start;
-        background: rgba(59, 130, 246, 0.2);
-        border-radius: 18px 18px 18px 4px;
-        color: white;
-    }
-    
-    .user-message {
-        align-self: flex-end;
-        background: rgba(31, 41, 55, 0.8);
-        border: 1px solid rgba(59, 130, 246, 0.3);
-        border-radius: 18px 18px 4px 18px;
-        color: white;
-    }
-    
-    .chatbot-input-container {
-        padding: 16px;
-        background: rgba(31, 41, 55, 0.9);
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        display: flex;
-        gap: 8px;
-    }
-    
-    .chatbot-input {
-        flex: 1;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 24px;
-        padding: 12px 20px;
-        color: white;
-        outline: none;
-    }
-    
-    .chatbot-input::placeholder {
-        color: rgba(255, 255, 255, 0.6);
-    }
-    
-    .chatbot-send {
-        background: #3B82F6;
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        color: white;
-    }
-    
-    .chatbot-send:hover {
-        background: #2563EB;
-    }
-    
-    .chatbot-send:disabled {
-        background: #6B7280;
-        cursor: not-allowed;
-    }
-    
-    .typing-indicator {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        padding: 12px 16px;
-        background: rgba(59, 130, 246, 0.2);
-        border-radius: 18px;
-        align-self: flex-start;
-        max-width: 80px;
-    }
-    
-    .typing-dot {
-        width: 8px;
-        height: 8px;
-        background-color: rgba(255, 255, 255, 0.7);
-        border-radius: 50%;
-        animation: typingAnimation 1.4s infinite ease-in-out;
-    }
-    
-    .typing-dot:nth-child(1) {
-        animation-delay: 0s;
-    }
-    
-    .typing-dot:nth-child(2) {
-        animation-delay: 0.2s;
-    }
-    
-    .typing-dot:nth-child(3) {
-        animation-delay: 0.4s;
-    }
-    
-    @keyframes typingAnimation {
-        0%, 60%, 100% {
-            transform: translateY(0);
-        }
-        30% {
-            transform: translateY(-5px);
-        }
-    }
-    
-    /* Markdown styling */
-    .markdown-content {
-        line-height: 1.5;
-    }
-    
-    .markdown-content h1, 
-    .markdown-content h2, 
-    .markdown-content h3 {
-        margin-top: 8px;
-        margin-bottom: 4px;
-        font-weight: 600;
-    }
-    
-    .markdown-content p {
-        margin-bottom: 8px;
-    }
-    
-    .markdown-content code {
-        background: rgba(0, 0, 0, 0.3);
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-family: 'Courier New', monospace;
-        font-size: 0.9em;
-    }
-    
-    .markdown-content pre {
-        background: rgba(0, 0, 0, 0.3);
-        padding: 12px;
-        border-radius: 8px;
-        overflow-x: auto;
-        margin: 8px 0;
-    }
-    
-    .markdown-content pre code {
-        background: none;
-        padding: 0;
-    }
-    
-    .markdown-content ul, 
-    .markdown-content ol {
-        padding-left: 20px;
-        margin: 8px 0;
-    }
-    
-    .markdown-content li {
-        margin-bottom: 4px;
-    }
-    
-    .markdown-content a {
-        color: #3B82F6;
-        text-decoration: underline;
-    }
-    
-    .markdown-content blockquote {
-        border-left: 4px solid rgba(59, 130, 246, 0.5);
-        padding-left: 12px;
-        margin: 8px 0;
-        color: rgba(255, 255, 255, 0.8);
-    }
-        
-        /* Animation for the toggle button when closed */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        /* Interactive elements */
+        .interactive-element {
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
         
-        .chatbot-closed .chatbot-toggle {
-            animation: pulse 2s infinite;
+        .interactive-element:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .achievement-badge {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+            font-weight: bold;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .achievement-badge:hover {
+            transform: scale(1.2) rotate(5deg);
+        }
+        
+        .achievement-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(31, 41, 55, 0.95);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            margin-bottom: 8px;
+            z-index: 100;
+        }
+        
+        .achievement-badge:hover .achievement-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #F59E0B;
+            opacity: 0;
+            z-index: 1000;
+            pointer-events: none;
+        }
+        
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        
+        .celebration-content {
+            background: rgba(31, 41, 55, 0.9);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            animation: celebrate 1s ease-out;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid #3B82F6;
+            white-space: nowrap;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #3B82F6 }
+        }
+        
+        .hint-reveal {
+            animation: hintReveal 0.5s ease-out;
+        }
+        
+        @keyframes hintReveal {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .progress-pulse {
+            animation: progressPulse 2s infinite;
+        }
+        
+        @keyframes progressPulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        
+        @keyframes shake {
+            10%, 90% { transform: translateX(-1px); }
+            20%, 80% { transform: translateX(2px); }
+            30%, 50%, 70% { transform: translateX(-4px); }
+            40%, 60% { transform: translateX(4px); }
+        }
+        
+        /* Tutorial overlay */
+        .tutorial-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        .tutorial-content {
+            background: rgba(31, 41, 55, 0.95);
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tutorial-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
         }
     </style>
 </head>
@@ -436,7 +331,7 @@
                 <!-- Game Header -->
                 <div class="flex flex-col md:flex-row justify-between items-center p-4 bg-quest-dark/30">
                     <div class="flex items-center space-x-4 mb-2 md:mb-0">
-                        <button id="backToHomeBtn" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors">
+                        <button id="backToHomeBtn" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors interactive-element">
                             ← Back to Learn
                         </button>
                         <h2 class="text-xl md:text-2xl font-bold">Level <span id="gameLevel">1</span>: <span id="currentTopic">Spacing Basics</span></h2>
@@ -485,13 +380,13 @@
                                 <!-- Challenge Controls -->
                                 <div class="mt-auto pt-4">
                                     <div class="flex flex-wrap justify-center gap-2">
-                                        <button id="checkAnswerBtn" class="bg-quest-secondary hover:bg-green-600 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-lg transition-colors">
+                                        <button id="checkAnswerBtn" class="bg-quest-secondary hover:bg-green-600 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-lg transition-colors interactive-element">
                                             Check Answer
                                         </button>
-                                        <button id="hintBtn" class="bg-quest-accent hover:bg-yellow-600 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-lg transition-colors">
+                                        <button id="hintBtn" class="bg-quest-accent hover:bg-yellow-600 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-lg transition-colors interactive-element">
                                             Get Hint
                                         </button>
-                                        <button id="nextChallengeBtn" class="bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-lg transition-colors hidden">
+                                        <button id="nextChallengeBtn" class="bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-lg transition-colors interactive-element hidden">
                                             Next Challenge
                                         </button>
                                     </div>
@@ -513,7 +408,7 @@
                                         Box content
                                     </div>
                                 </div>
-                                <div class="hidden shadow-purple-600 shadow-2xl text-xs text-gray-400 mt-2 text-center " id="targetHint">
+                                <div class="hidden shadow-purple-600 shadow-2xl text-xs text-gray-400 mt-2 text-center" id="targetHint">
                                     Try to match this appearance
                                 </div>
                             </div>
@@ -540,6 +435,25 @@
                                         <div class="text-xs text-gray-300">Concepts</div>
                                     </div>
                                 </div>
+                                
+                                <!-- Achievements -->
+                                <div class="mt-4">
+                                    <h3 class="text-lg font-bold mb-3">🏆 Achievements</h3>
+                                    <div class="flex justify-center space-x-2" id="achievementsContainer">
+                                        <div class="achievement-badge" data-tooltip="First Challenge Completed">
+                                            <span>1</span>
+                                            <div class="achievement-tooltip">First Challenge Completed</div>
+                                        </div>
+                                        <div class="achievement-badge opacity-30" data-tooltip="Speed Runner">
+                                            <span>⚡</span>
+                                            <div class="achievement-tooltip">Speed Runner</div>
+                                        </div>
+                                        <div class="achievement-badge opacity-30" data-tooltip="Perfect Score">
+                                            <span>⭐</span>
+                                            <div class="achievement-tooltip">Perfect Score</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -556,7 +470,7 @@
                         
                         <div class="w-full md:w-64 lg:w-96">
                             <div class="w-full bg-gray-700 rounded-full h-3">
-                                <div id="progressBar" class="bg-quest-primary h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+                                <div id="progressBar" class="bg-quest-primary h-3 rounded-full transition-all duration-300 progress-pulse" style="width: 0%"></div>
                             </div>
                         </div>
                         
@@ -577,178 +491,269 @@
         </div>
     </div>
 
-    <!-- Chatbot Container -->
-<div class="chatbot-container chatbot-closed" id="chatbotContainer">
-    <div class="chatbot-window">
-        <div class="chatbot-header">
-            <div class="chatbot-avatar">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-            </div>
-            <div class="chatbot-title">Tailwind Assistant</div>
-            <div class="chatbot-status"></div>
-        </div>
-        <div class="chatbot-messages" id="chatMessages">
-            <div class="message bot-message">
-                <div class="markdown-content">Hi there! I'm your Tailwind CSS assistant. How can I help you today?</div>
-            </div>
-        </div>
-        <div class="chatbot-input-container">
-            <input type="text" class="chatbot-input" id="chatInput" placeholder="Type your message...">
-            <button class="chatbot-send" id="chatSend">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
-            </button>
+    <!-- Celebration Container (initially hidden) -->
+    <div id="celebrationContainer" class="celebration hidden">
+        <div class="celebration-content">
+            <h2 class="text-3xl font-bold text-quest-accent mb-4">🎉 Challenge Complete!</h2>
+            <p class="text-xl text-gray-300 mb-6">You earned <span class="text-quest-secondary font-bold">+10</span> points!</p>
+            <div class="text-4xl mb-4" id="celebrationIcon">⭐</div>
         </div>
     </div>
-    <div class="chatbot-toggle" id="chatbotToggle">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-        </svg>
-    </div>
-</div>
 
-    <script src="./script.js"></script>
+    <!-- Tutorial Overlay (initially hidden) -->
+    <div id="tutorialOverlay" class="tutorial-overlay hidden">
+        <div class="tutorial-content">
+            <h2 class="text-2xl font-bold text-quest-primary mb-4">Welcome to Tailwind Quest!</h2>
+            <p class="text-gray-300 mb-4">Learn Tailwind CSS through interactive challenges. Here's how to play:</p>
+            <ol class="list-decimal list-inside text-gray-300 mb-6 space-y-2">
+                <li>Enter the correct Tailwind class in the code editor</li>
+                <li>Click "Check Answer" to verify your solution</li>
+                <li>Use "Get Hint" if you need help</li>
+                <li>Complete challenges to earn points and achievements</li>
+            </ol>
+            <div class="tutorial-navigation">
+                <button id="skipTutorialBtn" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors">
+                    Skip Tutorial
+                </button>
+                <button id="nextTutorialBtn" class="bg-quest-primary hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                    Let's Go!
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="chatbot-container chatbot-closed" id="chatbotContainer">
+        <div class="chatbot-window">
+            <div class="chatbot-header">
+                <div class="chatbot-avatar">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <div class="chatbot-title">Tailwind Assistant</div>
+                <div class="chatbot-status"></div>
+            </div>
+            <div class="chatbot-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <div class="markdown-content">Hi there! I'm your Tailwind CSS assistant. How can I help you today?</div>
+                </div>
+            </div>
+            <div class="chatbot-input-container">
+                <input type="text" class="chatbot-input" id="chatInput" placeholder="Type your message...">
+                <button class="chatbot-send" id="chatSend">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="chatbot-toggle" id="chatbotToggle">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+        </div>
+    </div>
     <script src="./game.js"></script>
+    <script src="./script.js"></script>
+    <script src="./chatbot.js"></script>
     <script>
-    // Chatbot functionality
+    // Enhanced game functionality with interactive elements
     document.addEventListener('DOMContentLoaded', function() {
-        const chatbotContainer = document.getElementById('chatbotContainer');
-        const chatbotToggle = document.getElementById('chatbotToggle');
-        const chatMessages = document.getElementById('chatMessages');
-        const chatInput = document.getElementById('chatInput');
-        const chatSend = document.getElementById('chatSend');
-        
-        // Toggle chatbot open/close
-        chatbotToggle.addEventListener('click', function() {
-            chatbotContainer.classList.toggle('chatbot-closed');
-            chatbotContainer.classList.toggle('chatbot-open');
-            if (chatbotContainer.classList.contains('chatbot-open')) {
-                chatInput.focus();
-            }
-        });
-        
-        // Send message function
-        function sendMessage() {
-            const userMsg = chatInput.value.trim();
-            if (!userMsg) return;
-            
-            // Add user message to chat
-            addMessage(userMsg, 'user');
-            
-            // Clear input
-            chatInput.value = '';
-            
-            // Show typing indicator
-            const typingIndicator = document.createElement('div');
-            typingIndicator.className = 'typing-indicator';
-            typingIndicator.innerHTML = `
-                <div class="typing-dot"></div>
-                <div class="typing-dot"></div>
-                <div class="typing-dot"></div>
-            `;
-            chatMessages.appendChild(typingIndicator);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            
-            // Disable send button while processing
-            chatSend.disabled = true;
-            
-            // Get current topic from page
-            const selectedTopic = document.getElementById('currentTopic')?.textContent || 'Tailwind CSS';
-            
-            // Send message to backend
-            fetch('https://joyr13384.app.n8n.cloud/webhook/98594f76-a4df-4e7c-a9f7-85167da4528a', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: userMsg, topic: selectedTopic })
-            })
-            .then(res => res.text())
-            .then(text => {
-                // Remove typing indicator
-                chatMessages.removeChild(typingIndicator);
-                
-                // Add bot response with markdown rendering
-                addMessage(text, 'bot');
-                
-                // Re-enable send button
-                chatSend.disabled = false;
-            })
-            .catch(error => {
-                // Remove typing indicator
-                chatMessages.removeChild(typingIndicator);
-                
-                // Show error message
-                addMessage('Sorry, I encountered an error. Please try again later.', 'bot');
-                
-                // Re-enable send button
-                chatSend.disabled = false;
-                console.error('Error:', error);
-            });
+        // Check if this is the user's first visit
+        if (!localStorage.getItem('tailwindQuestFirstVisit')) {
+            document.getElementById('tutorialOverlay').classList.remove('hidden');
+            localStorage.setItem('tailwindQuestFirstVisit', 'true');
         }
         
-        // Add message to chat
-        function addMessage(text, sender) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${sender}-message`;
+        // Tutorial event listeners
+        document.getElementById('skipTutorialBtn').addEventListener('click', function() {
+            document.getElementById('tutorialOverlay').classList.add('hidden');
+        });
+        
+        document.getElementById('nextTutorialBtn').addEventListener('click', function() {
+            document.getElementById('tutorialOverlay').classList.add('hidden');
+        });
+        
+        // Create confetti elements
+        function createConfetti() {
+            const colors = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'];
+            const container = document.body;
             
-            if (sender === 'bot') {
-                // Convert markdown to HTML for bot messages
-                const markdownContent = document.createElement('div');
-                markdownContent.className = 'markdown-content';
-                markdownContent.innerHTML = parseMarkdown(text);
-                messageDiv.appendChild(markdownContent);
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animation = `confettiFall ${1 + Math.random() * 2}s linear forwards`;
+                confetti.style.animationDelay = Math.random() * 1 + 's';
+                container.appendChild(confetti);
+                
+                // Remove confetti after animation completes
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+        }
+        
+        // Celebration animation
+        function celebrateCompletion() {
+            const celebration = document.getElementById('celebrationContainer');
+            const icon = document.getElementById('celebrationIcon');
+            
+            // Random celebration icon
+            const icons = ['🎉', '⭐', '🏆', '🔥', '✨'];
+            icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+            
+            celebration.classList.remove('hidden');
+            createConfetti();
+            
+            // Hide celebration after delay
+            setTimeout(() => {
+                celebration.classList.add('hidden');
+            }, 2000);
+        }
+        
+        // Enhanced check answer function
+        function checkAnswer() {
+            const userInput = document.getElementById('codeInput').value.trim();
+            const challenge = window.game.learningPath[window.game.currentTopic].challenges[window.game.currentChallengeIndex];
+            
+            if (userInput === challenge.correctAnswer) {
+                // Correct answer
+                document.getElementById('checkAnswerBtn').classList.add('animate-tada');
+                document.getElementById('previewContainer').classList.add('animate-pulse');
+                
+                // Celebrate
+                celebrateCompletion();
+                
+                // Handle correct answer after a short delay
+                setTimeout(() => {
+                    window.game.handleCorrectAnswer(challenge);
+                    document.getElementById('checkAnswerBtn').classList.remove('animate-tada');
+                    document.getElementById('previewContainer').classList.remove('animate-pulse');
+                }, 800);
             } else {
-                // User messages are plain text
-                messageDiv.textContent = text;
+                // Incorrect answer
+                document.getElementById('codeInput').classList.add('shake');
+                
+                // Handle incorrect answer after animation
+                setTimeout(() => {
+                    window.game.handleIncorrectAnswer(challenge);
+                    document.getElementById('codeInput').classList.remove('shake');
+                }, 500);
+            }
+        }
+        
+        
+        
+        // Update event listeners with enhanced functionality
+        document.getElementById('checkAnswerBtn').addEventListener('click', checkAnswer);
+        document.getElementById('hintBtn').addEventListener('click', showHint);
+        
+        // Add interactive sound effects (using the Web Audio API)
+        function playSound(frequency, duration) {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = frequency;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration);
+            } catch (e) {
+                console.log('Web Audio API not supported in this browser');
+            }
+        }
+        
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+Enter to check answer
+            if (e.ctrlKey && e.key === 'Enter') {
+                e.preventDefault();
+                checkAnswer();
             }
             
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-        
-        // Simple markdown parser
-        function parseMarkdown(text) {
-            // Convert headers
-            text = text.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-            text = text.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-            text = text.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+            // Ctrl+H for hint
+            if (e.ctrlKey && e.key === 'h') {
+                e.preventDefault();
+                showHint();
+            }
             
-            // Convert bold and italic
-            text = text.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>');
-            text = text.replace(/\*(.*?)\*/gim, '<em>$1</em>');
-            
-            // Convert code blocks
-            text = text.replace(/```([\s\S]*?)```/gim, '<pre><code>$1</code></pre>');
-            text = text.replace(/`(.*?)`/gim, '<code>$1</code>');
-            
-            // Convert links
-            text = text.replace(/\[([^\[]+)\]\(([^\)]+)\)/gim, '<a href="$2" target="_blank">$1</a>');
-            
-            // Convert paragraphs
-            text = text.replace(/(\n\n|\r\r|\r\n\r\n)/gim, '</p><p>');
-            text = text.replace(/(\n|\r|\r\n)/gim, '<br>');
-            text = '<p>' + text + '</p>';
-            
-            // Convert lists
-            text = text.replace(/^\s*\- (.*$)/gim, '<li>$1</li>');
-            text = text.replace(/(<li>.*<\/li>)/gim, '<ul>$1</ul>');
-            
-            // Convert blockquotes
-            text = text.replace(/^>\s(.*$)/gim, '<blockquote>$1</blockquote>');
-            
-            return text;
-        }
-        
-        // Event listeners
-        chatSend.addEventListener('click', sendMessage);
-        chatInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
+            // Ctrl+ArrowRight for next challenge
+            if (e.ctrlKey && e.key === 'ArrowRight') {
+                e.preventDefault();
+                if (!document.getElementById('nextChallengeBtn').classList.contains('hidden')) {
+                    window.game.nextChallenge();
+                }
             }
         });
+        
+        // Add tooltips for keyboard shortcuts
+        const checkAnswerBtn = document.getElementById('checkAnswerBtn');
+        checkAnswerBtn.title = 'Ctrl+Enter';
+        
+        const hintBtn = document.getElementById('hintBtn');
+        hintBtn.title = 'Ctrl+H';
+        
+        // Add interactive code examples
+        function addInteractiveExamples() {
+            const challenge = window.game.learningPath[window.game.currentTopic].challenges[window.game.currentChallengeIndex];
+            const examples = challenge.examples || [];
+            
+            if (examples.length > 0) {
+                const examplesContainer = document.createElement('div');
+                examplesContainer.className = 'mt-4';
+                examplesContainer.innerHTML = `
+                    <h4 class="text-sm font-semibold mb-2">💡 Examples:</h4>
+                    <div class="space-y-2" id="examplesList"></div>
+                `;
+                
+                document.getElementById('learningArea').insertBefore(examplesContainer, document.querySelector('.mt-auto'));
+                
+                const examplesList = document.getElementById('examplesList');
+                examples.forEach(example => {
+                    const exampleElement = document.createElement('div');
+                    exampleElement.className = 'bg-gray-800 p-2 rounded text-sm interactive-element';
+                    exampleElement.innerHTML = `
+                        <code class="text-quest-accent">${example.code}</code>
+                        <span class="text-gray-400 ml-2">${example.description}</span>
+                        <button class="float-right text-xs bg-quest-primary text-white px-2 py-1 rounded copy-btn" data-code="${example.code}">Copy</button>
+                    `;
+                    examplesList.appendChild(exampleElement);
+                });
+                
+                // Add copy functionality
+                document.querySelectorAll('.copy-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const code = this.getAttribute('data-code');
+                        navigator.clipboard.writeText(code).then(() => {
+                            this.textContent = 'Copied!';
+                            setTimeout(() => {
+                                this.textContent = 'Copy';
+                            }, 2000);
+                        });
+                    });
+                });
+            }
+        }
+        
+        // Modify the loadCurrentChallenge function to include examples
+        const originalLoadChallenge = window.game.loadCurrentChallenge;
+        window.game.loadCurrentChallenge = function() {
+            originalLoadChallenge.call(this);
+            addInteractiveExamples();
+        };
+        
+        // Initialize the game with enhanced functionality
+        window.game.loadCurrentChallenge();
     });
-</script>
+    </script>
 </body>
 </html>
