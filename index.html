@@ -74,6 +74,204 @@
             border-color: #3B82F6;
             background: rgba(59, 130, 246, 0.2);
         }
+
+        /* Improved Chatbot styles */
+        #chatbot-fab {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 1000;
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, #3B82F6 60%, #10B981 100%);
+            border-radius: 50%;
+            box-shadow: 0 8px 32px rgba(59,130,246,0.25), 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: box-shadow 0.2s, transform 0.2s;
+            border: 4px solid #fff;
+        }
+        #chatbot-fab:hover {
+            box-shadow: 0 12px 40px rgba(59,130,246,0.35), 0 4px 16px rgba(0,0,0,0.12);
+            transform: scale(1.07);
+        }
+        #chatbot-fab svg {
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+        }
+
+        #chatbot-window {
+            position: fixed;
+            bottom: 128px;
+            right: 40px;
+            width: 420px;
+            max-width: 98vw;
+            height: 540px;
+            max-height: 80vh;
+            background: rgba(31,41,55,0.98);
+            color: #fff;
+            border-radius: 1.5rem;
+            box-shadow: 0 16px 48px rgba(59,130,246,0.25), 0 4px 16px rgba(0,0,0,0.18);
+            z-index: 1001;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            animation: chatbot-pop 0.22s;
+            border: 2px solid #3B82F6;
+            backdrop-filter: blur(8px);
+        }
+        @media (max-width: 600px) {
+            #chatbot-window {
+                width: 98vw;
+                right: 1vw;
+                left: 1vw;
+                bottom: 90px;
+                height: 70vh;
+                min-height: 350px;
+            }
+        }
+        @keyframes chatbot-pop {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        #chatbot-header {
+            background: linear-gradient(90deg, #3B82F6 60%, #10B981 100%);
+            padding: 1.1rem 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            letter-spacing: 0.01em;
+            box-shadow: 0 2px 8px rgba(59,130,246,0.07);
+        }
+        #chatbot-header .bot-avatar {
+            background: #fff;
+            color: #3B82F6;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.8rem;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 8px rgba(59,130,246,0.10);
+        }
+        #chatbot-close {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.7rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            margin-left: 1rem;
+        }
+        #chatbot-close:hover {
+            opacity: 1;
+        }
+        #chatbot-messages {
+            flex: 1;
+            padding: 1.2rem 1.5rem 1.2rem 1.5rem;
+            overflow-y: auto;
+            background: transparent;
+            max-height: 350px;
+            font-size: 1.08rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            scrollbar-width: thin;
+            scrollbar-color: #3B82F6 #23272f;
+        }
+        #chatbot-messages::-webkit-scrollbar {
+            width: 8px;
+            background: #23272f;
+        }
+        #chatbot-messages::-webkit-scrollbar-thumb {
+            background: #3B82F6;
+            border-radius: 4px;
+        }
+        .chatbot-msg {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+        .chatbot-msg.user {
+            align-items: flex-end;
+        }
+        .chatbot-msg.bot {
+            align-items: flex-start;
+        }
+        .chatbot-bubble {
+            padding: 0.7rem 1.2rem;
+            border-radius: 1.2rem;
+            max-width: 80%;
+            word-break: break-word;
+            font-size: 1.05rem;
+            box-shadow: 0 2px 8px rgba(59,130,246,0.07);
+            margin-bottom: 2px;
+            transition: background 0.2s;
+        }
+        .chatbot-msg.user .chatbot-bubble {
+            background: linear-gradient(90deg, #3B82F6 60%, #10B981 100%);
+            color: #fff;
+            border-bottom-right-radius: 0.3rem;
+            border-top-right-radius: 1.5rem;
+        }
+        .chatbot-msg.bot .chatbot-bubble {
+            background: #fff;
+            color: #23272f;
+            border-bottom-left-radius: 0.3rem;
+            border-top-left-radius: 1.5rem;
+        }
+        .chatbot-msg .timestamp {
+            font-size: 0.78rem;
+            color: #a1a1aa;
+            margin-top: 0.1rem;
+            margin-left: 0.2rem;
+            margin-right: 0.2rem;
+        }
+        #chatbot-input-row {
+            display: flex;
+            border-top: 1px solid #374151;
+            background: #23272f;
+            padding: 0.9rem 1.2rem;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        #chatbot-input {
+            flex: 1;
+            border: none;
+            border-radius: 0.7rem;
+            padding: 0.7rem 1.1rem;
+            font-size: 1.08rem;
+            outline: none;
+            background: #f3f4f6;
+            color: #23272f;
+            box-shadow: 0 1px 4px rgba(59,130,246,0.04);
+            transition: box-shadow 0.2s;
+        }
+        #chatbot-input:focus {
+            box-shadow: 0 2px 8px rgba(59,130,246,0.10);
+        }
+        #chatbot-send {
+            background: linear-gradient(90deg, #3B82F6 60%, #10B981 100%);
+            color: #fff;
+            border: none;
+            border-radius: 0.7rem;
+            padding: 0.7rem 1.3rem;
+            font-weight: bold;
+            font-size: 1.08rem;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+            box-shadow: 0 1px 4px rgba(59,130,246,0.08);
+        }
+        #chatbot-send:hover {
+            background: linear-gradient(90deg, #2563eb 60%, #059669 100%);
+            box-shadow: 0 2px 8px rgba(59,130,246,0.12);
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
@@ -202,7 +400,7 @@
                 </div>
 
                 <div class="mb-8">
-                    <button id="startLearningBtn" class="bg-quest-primary hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    <button id="startLearningBtn" class="bg-quest-primary hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg disabled:opacity-50" disabled>
                         🚀 Start Learning
                     </button>
                     <p class="text-sm text-gray-300 mt-2">Select a topic above to begin your learning journey</p>
@@ -363,6 +561,268 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+</div>
+
+<!-- Notification Container (for JS notifications) -->
+<div id="notification-container" class="z-[100] fixed top-0 right-0 w-full pointer-events-none"></div>
+
+<!-- Modal Overlay (for JS modals) -->
+<div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center invisible opacity-0 transition-all duration-300 z-[200]">
+    <div id="modal" class="bg-white rounded-lg shadow-2xl p-8 max-w-md w-full transform scale-90 -translate-y-5 transition-all duration-300">
+        <div id="modal-content"></div>
+    </div>
+</div>
+
+<!-- Floating Chatbot Button and Chat Window -->
+<div id="chatbot-fab" title="Chat with Tailwind Bot">
+    <svg width="38" height="38" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" stroke="white" stroke-width="2" fill="#3B82F6"/>
+        <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="9" cy="10" r="1" fill="white"/>
+        <circle cx="15" cy="10" r="1" fill="white"/>
+    </svg>
+</div>
+<div id="chatbot-window">
+    <div id="chatbot-header">
+        <span class="flex items-center">
+            <span class="bot-avatar">🤖</span>
+            Tailwind Bot
+        </span>
+        <button id="chatbot-close" title="Close">&times;</button>
+    </div>
+    <div id="chatbot-messages">
+        <div class="chatbot-msg bot">
+            <div class="chatbot-bubble">Hi! 👋<br>Ask me anything about <b>Tailwind CSS</b> or web styling.</div>
+            <span class="timestamp"></span>
+        </div>
+    </div>
+    <form id="chatbot-input-row" autocomplete="off">
+        <input id="chatbot-input" type="text" placeholder="Type your message..." required />
+        <button id="chatbot-send" type="submit">
+            <svg width="22" height="22" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </form>
+</div>
+
+<script src="script.js"></script>
+<script>
+    // --- START LEARNING BUTTON FUNCTIONALITY ---
+
+    // Get references to elements
+    const startLearningBtn = document.getElementById('startLearningBtn');
+    const homeScreen = document.getElementById('homeScreen');
+    const gameScreen = document.getElementById('gameScreen');
+    const topicCards = document.querySelectorAll('.topic-card');
+    const currentTopic = document.getElementById('currentTopic');
+    const gameLevel = document.getElementById('gameLevel');
+    const challengeTitle = document.getElementById('challengeTitle');
+    const challengeDescription = document.getElementById('challengeDescription');
+
+    let selectedTopic = null;
+
+    // Challenge data for each topic
+    const topicChallenges = {
+        "Spacing Basics": {
+            title: "Add Padding",
+            description: "Add the correct Tailwind class to give this box some padding."
+        },
+        "Colors & Backgrounds": {
+            title: "Set Background Color",
+            description: "Use a Tailwind class to make the box background blue and the text red."
+        },
+        "Layout & Flexbox": {
+            title: "Make it Flex",
+            description: "Apply a Tailwind class to turn this container into a flexbox layout."
+        },
+        "Responsive Design": {
+            title: "Responsive Text",
+            description: "Use Tailwind's responsive classes to make the text size larger on medium screens."
+        }
+    };
+
+    // Topic selection logic
+    topicCards.forEach(card => {
+        card.addEventListener('click', () => {
+            // Remove 'selected' from all
+            topicCards.forEach(c => c.classList.remove('selected'));
+            // Add 'selected' to clicked
+            card.classList.add('selected');
+            // Store selected topic
+            selectedTopic = card.getAttribute('data-topic');
+            // Enable start button
+            startLearningBtn.disabled = false;
+        });
+    });
+
+    // Start Learning button logic
+    startLearningBtn.addEventListener('click', () => {
+        if (!selectedTopic) return;
+        // Hide home, show game
+        homeScreen.classList.add('hidden');
+        gameScreen.classList.remove('hidden');
+        // Set topic in game screen
+        if (currentTopic) currentTopic.textContent = selectedTopic;
+        if (gameLevel) gameLevel.textContent = "1";
+        // Set challenge title and description based on topic
+        if (challengeTitle && challengeDescription && topicChallenges[selectedTopic]) {
+            challengeTitle.textContent = topicChallenges[selectedTopic].title;
+            challengeDescription.textContent = topicChallenges[selectedTopic].description;
+        }
+        // Optionally reset other game state here
+    });
+
+    // Quick Start button logic
+    const quickStartBtn = document.getElementById('quickStartBtn');
+    if (quickStartBtn) {
+        quickStartBtn.addEventListener('click', () => {
+            // Select first topic (Spacing Basics)
+            topicCards.forEach(c => c.classList.remove('selected'));
+            const spacingCard = Array.from(topicCards).find(c => c.getAttribute('data-topic') === 'Spacing Basics');
+            if (spacingCard) {
+                spacingCard.classList.add('selected');
+                selectedTopic = 'Spacing Basics';
+                startLearningBtn.disabled = false;
+            }
+            // Start game
+            homeScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+            if (currentTopic) currentTopic.textContent = selectedTopic;
+            if (gameLevel) gameLevel.textContent = "1";
+            // Set challenge for Spacing Basics
+            if (challengeTitle && challengeDescription && topicChallenges[selectedTopic]) {
+                challengeTitle.textContent = topicChallenges[selectedTopic].title;
+                challengeDescription.textContent = topicChallenges[selectedTopic].description;
+            }
+        });
+    }
+
+    // Optional: Back to Home button
+    const backToHomeBtn = document.getElementById('backToHomeBtn');
+    if (backToHomeBtn) {
+        backToHomeBtn.addEventListener('click', () => {
+            gameScreen.classList.add('hidden');
+            homeScreen.classList.remove('hidden');
+        });
+    }
+
+    // Floating Chatbot Logic (improved)
+    const chatbotFab = document.getElementById('chatbot-fab');
+    const chatbotWindow = document.getElementById('chatbot-window');
+    const chatbotClose = document.getElementById('chatbot-close');
+    const chatbotMessages = document.getElementById('chatbot-messages');
+    const chatbotInputRow = document.getElementById('chatbot-input-row');
+    const chatbotInput = document.getElementById('chatbot-input');
+    const chatbotSend = document.getElementById('chatbot-send');
+
+    // Show chatbot window
+    chatbotFab.addEventListener('click', () => {
+        chatbotWindow.style.display = 'flex';
+        setTimeout(() => chatbotInput.focus(), 100);
+    });
+
+    // Hide chatbot window
+    chatbotClose.addEventListener('click', () => {
+        chatbotWindow.style.display = 'none';
+    });
+
+    // Send message
+    chatbotInputRow.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const msg = chatbotInput.value.trim();
+        if (!msg) return;
+        appendChatMessage('user', msg);
+        chatbotInput.value = '';
+        chatbotInput.disabled = true;
+        chatbotSend.disabled = true;
+        // Show loading
+        const loadingMsg = appendChatMessage('bot', '...');
+        try {
+            const res = await fetch('https://joyr13384.app.n8n.cloud/webhook/98594f76-a4df-4e7c-a9f7-85167da4528a', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: msg })
+            });
+            let reply = '';
+            if (res.ok) {
+                // Try to parse as JSON, fallback to text
+                const text = await res.text();
+                try {
+                    const data = JSON.parse(text);
+                    reply = data.reply || data.message || text;
+                } catch {
+                    reply = text;
+                }
+            } else {
+                reply = 'Sorry, there was a problem getting a response.';
+            }
+            loadingMsg.querySelector('.chatbot-bubble').textContent = reply;
+            loadingMsg.querySelector('.timestamp').textContent = getTimeString();
+        } catch (err) {
+            loadingMsg.querySelector('.chatbot-bubble').textContent = 'Network error. Please try again.';
+            loadingMsg.querySelector('.timestamp').textContent = getTimeString();
+        }
+        chatbotInput.disabled = false;
+        chatbotSend.disabled = false;
+        chatbotInput.focus();
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    });
+
+    function appendChatMessage(sender, text) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = 'chatbot-msg ' + sender;
+        const bubble = document.createElement('div');
+        bubble.className = 'chatbot-bubble';
+        bubble.innerHTML = text;
+        msgDiv.appendChild(bubble);
+        const time = document.createElement('span');
+        time.className = 'timestamp';
+        time.textContent = getTimeString();
+        msgDiv.appendChild(time);
+        chatbotMessages.appendChild(msgDiv);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        return msgDiv;
+    }
+
+    function getTimeString() {
+        const d = new Date();
+        return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+</script>
+<!-- ...existing code... -->
+
+<!-- Game Type Selection Modal -->
+<div id="gameTypeModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
+    <div class="bg-white rounded-lg shadow-xl p-8 max-w-md w-full text-gray-900">
+        <h2 class="text-2xl font-bold mb-4 text-quest-primary">Choose a Game Mode</h2>
+        <div class="space-y-4">
+            <button class="w-full py-3 px-4 rounded-lg bg-quest-primary text-white font-semibold hover:bg-blue-700 transition" data-gametype="quiz">Quiz</button>
+            <button class="w-full py-3 px-4 rounded-lg bg-quest-secondary text-white font-semibold hover:bg-green-700 transition" data-gametype="color">Color Match</button>
+            <button class="w-full py-3 px-4 rounded-lg bg-quest-accent text-white font-semibold hover:bg-yellow-700 transition" data-gametype="shape">Shape Builder</button>
+            <button class="w-full py-3 px-4 rounded-lg bg-purple-600 text-white font-semibold hover:bg-purple-800 transition" data-gametype="task">Mini Task</button>
+        </div>
+        <button id="closeGameTypeModal" class="mt-6 w-full py-2 rounded bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold">Cancel</button>
+    </div>
+</div>
+
+<!-- Mini-Game Container (dynamic) -->
+<div id="miniGameContainer" class="fixed inset-0 z-40 flex items-center justify-center bg-black bg-opacity-40 hidden">
+    <div class="bg-white rounded-lg shadow-2xl p-8 max-w-xl w-full relative">
+        <button id="closeMiniGame" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700">✖</button>
+        <div id="miniGameContent">
+            <!-- Mini-game content will be injected here -->
+        </div>
+        <div class="mt-6">
+            <h4 class="font-bold mb-2 text-quest-primary">Preview</h4>
+            <div id="miniGamePreview" class="bg-gray-100 rounded p-4 min-h-20 border border-gray-300"></div>
+        </div>
+        <div class="mt-4 flex items-center space-x-2">
+            <input type="text" id="miniGameChatInput" placeholder="Ask for a hint..." class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-quest-primary">
+            <button id="miniGameChatSend" class="bg-quest-primary text-white px-4 py-2 rounded hover:bg-blue-700">Ask</button>
+        </div>
+        <div id="miniGameChatResponse" class="mt-2 text-sm text-gray-700"></div>
+    </div>
+</div>
 </body>
-</html> 
+</html>

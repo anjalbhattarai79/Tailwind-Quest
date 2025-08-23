@@ -1,0 +1,10 @@
+/* Topic card selection: make entire card and all content clickable */
+.topic-card {
+	cursor: pointer;
+	outline: none;
+}
+.topic-card.selected {
+	border-color: #3B82F6;
+	background: rgba(59, 130, 246, 0.2);
+	box-shadow: 0 0 0 3px #3B82F6;
+}

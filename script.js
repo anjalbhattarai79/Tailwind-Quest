@@ -328,16 +328,171 @@ document.getElementById('message').addEventListener('input', function() {
     }
 });
 
-// Escape key to close modal
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeModal();
-    }
-});
 
-// Prevent form submission on Enter key (except in textarea)
-document.getElementById('contactForm').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
-        e.preventDefault();
+// --- GAME INTERFACE ENHANCEMENTS ---
+document.addEventListener('DOMContentLoaded', function() {
+    // Elements
+    const startLearningBtn = document.getElementById('startLearningBtn');
+    const topicCards = document.querySelectorAll('.topic-card');
+    const gameTypeModal = document.getElementById('gameTypeModal');
+    const closeGameTypeModal = document.getElementById('closeGameTypeModal');
+    const miniGameContainer = document.getElementById('miniGameContainer');
+    const closeMiniGame = document.getElementById('closeMiniGame');
+    const miniGameContent = document.getElementById('miniGameContent');
+    const miniGamePreview = document.getElementById('miniGamePreview');
+    const miniGameChatInput = document.getElementById('miniGameChatInput');
+    const miniGameChatSend = document.getElementById('miniGameChatSend');
+    const miniGameChatResponse = document.getElementById('miniGameChatResponse');
+    let selectedTopic = null;
+
+
+
+    // Enable Start Learning when a topic is selected, and update cursor
+    topicCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            topicCards.forEach(c => c.classList.remove('selected'));
+            e.currentTarget.classList.add('selected');
+            selectedTopic = e.currentTarget.getAttribute('data-topic');
+            // Debugging: show border and log
+            e.currentTarget.style.outline = '3px solid #F59E0B';
+            setTimeout(() => { e.currentTarget.style.outline = ''; }, 500);
+            console.log('Card selected:', selectedTopic);
+            if (startLearningBtn) {
+                startLearningBtn.disabled = false;
+                startLearningBtn.style.cursor = 'pointer';
+            }
+        });
+    });
+
+    // Set initial cursor style for disabled button
+    if (startLearningBtn) {
+        startLearningBtn.style.cursor = 'not-allowed';
     }
+
+    // Show game type modal on Start Learning
+    if (startLearningBtn) {
+        startLearningBtn.addEventListener('click', function() {
+            if (!selectedTopic) return;
+            gameTypeModal.classList.remove('hidden');
+        });
+    }
+
+    // Close game type modal
+    if (closeGameTypeModal) {
+        closeGameTypeModal.addEventListener('click', function() {
+            gameTypeModal.classList.add('hidden');
+        });
+    }
+
+    // Handle game type selection
+    gameTypeModal.querySelectorAll('button[data-gametype]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const gameType = this.getAttribute('data-gametype');
+            gameTypeModal.classList.add('hidden');
+            showMiniGame(gameType, selectedTopic);
+        });
+    });
+
+    // Show mini-game container
+    function showMiniGame(gameType, topic) {
+        miniGameContainer.classList.remove('hidden');
+        miniGameChatResponse.textContent = '';
+        miniGameChatInput.value = '';
+        // Placeholder content for each game type
+        let html = '';
+        if (gameType === 'quiz') {
+            html = `<h3 class='text-xl font-bold mb-2'>Quiz: ${topic}</h3><p>Answer a question about <b>${topic}</b>!</p>`;
+            miniGamePreview.innerHTML = '<div class="p-4 bg-blue-100 rounded">Quiz preview here</div>';
+        } else if (gameType === 'color') {
+            html = `<h3 class='text-xl font-bold mb-2'>Color Match: ${topic}</h3><p>Match the color using Tailwind classes!</p>`;
+            miniGamePreview.innerHTML = '<div class="w-16 h-16 rounded-full mx-auto" style="background: #3B82F6"></div>';
+        } else if (gameType === 'shape') {
+            html = `<h3 class='text-xl font-bold mb-2'>Shape Builder: ${topic}</h3><p>Build the correct shape using Tailwind classes!</p>`;
+            miniGamePreview.innerHTML = '<div class="w-16 h-16 bg-quest-accent rounded-full mx-auto"></div>';
+        } else if (gameType === 'task') {
+            html = `<h3 class='text-xl font-bold mb-2'>Mini Task: ${topic}</h3><p>Complete a small challenge related to <b>${topic}</b>.</p>`;
+            miniGamePreview.innerHTML = '<div class="p-4 bg-green-100 rounded">Task preview here</div>';
+        }
+        miniGameContent.innerHTML = html;
+    }
+
+    // Close mini-game
+    if (closeMiniGame) {
+        closeMiniGame.addEventListener('click', function() {
+            miniGameContainer.classList.add('hidden');
+        });
+    }
+
+    // Chatbot integration for mini-game
+    if (miniGameChatSend) {
+        miniGameChatSend.addEventListener('click', function() {
+            const userMsg = miniGameChatInput.value.trim();
+            if (!userMsg) return;
+            miniGameChatResponse.textContent = 'Thinking...';
+            fetch('https://joyr13384.app.n8n.cloud/webhook-test/98594f76-a4df-4e7c-a9f7-85167da4528a', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: userMsg, topic: selectedTopic })
+            })
+            .then(res => res.text())
+            .then(text => {
+                // If response contains <iframe ...>, strip it and show only the inner content as plain text
+                let reply = text;
+                const iframeMatch = text.match(/<iframe[^>]*srcdoc="([^"]+)"[^>]*>/);
+                if (iframeMatch) {
+                    // Decode HTML entities in srcdoc
+                    let srcdoc = iframeMatch[1]
+                        .replace(/&lt;/g, '<')
+                        .replace(/&gt;/g, '>')
+                        .replace(/&quot;/g, '"')
+                        .replace(/&#39;/g, "'")
+                        .replace(/&amp;/g, '&');
+                    // Remove any <script> tags for safety
+                    srcdoc = srcdoc.replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '');
+                    // Remove <iframe> if present in srcdoc
+                    srcdoc = srcdoc.replace(/<iframe[\s\S]*?>[\s\S]*?<\/iframe>/gi, '');
+                    // Remove style attributes for safety
+                    srcdoc = srcdoc.replace(/style="[^"]*"/gi, '');
+                    // Remove sandbox and allow attributes
+                    srcdoc = srcdoc.replace(/\s(sandbox|allow|allowtransparency|allowfullscreen|frameborder|scrolling|marginwidth|marginheight|width|height|srcdoc|src|name|id|title|tabindex|aria-[a-z-]+)="[^"]*"/gi, '');
+                    // Remove outer HTML/body if present
+                    srcdoc = srcdoc.replace(/<\/?(html|body)[^>]*>/gi, '');
+                    reply = srcdoc.trim();
+                }
+                // Remove any remaining <iframe> tags
+                reply = reply.replace(/<iframe[\s\S]*?>[\s\S]*?<\/iframe>/gi, '');
+                // Optionally, strip all HTML tags except <b>, <i>, <code>, <pre>
+                reply = reply.replace(/<(?!\/?(b|i|code|pre|br)\b)[^>]+>/gi, '');
+                // Replace <br> with newlines for better readability
+                reply = reply.replace(/<br\s*\/?>/gi, '\n');
+                miniGameChatResponse.textContent = '';
+                // If code/pre block, render as code
+                if (/<pre>|<code>/.test(reply)) {
+                    miniGameChatResponse.innerHTML = reply;
+                } else {
+                    // Escape HTML for plain text
+                    miniGameChatResponse.textContent = reply;
+                }
+            })
+            .catch(() => {
+                miniGameChatResponse.textContent = 'Sorry, there was a problem getting a response.';
+            });
+        });
+    }
+
+    // Enter key for chat
+    if (miniGameChatInput) {
+        miniGameChatInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') miniGameChatSend.click();
+        });
+    }
+
+    // Escape closes modals
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (!gameTypeModal.classList.contains('hidden')) gameTypeModal.classList.add('hidden');
+            if (!miniGameContainer.classList.contains('hidden')) miniGameContainer.classList.add('hidden');
+            closeModal();
+        }
+    });
 });
