@@ -695,54 +695,7 @@
             }
         });
         
-        // Add tooltips for keyboard shortcuts
-        const checkAnswerBtn = document.getElementById('checkAnswerBtn');
-        checkAnswerBtn.title = 'Ctrl+Enter';
-        
-        const hintBtn = document.getElementById('hintBtn');
-        hintBtn.title = 'Ctrl+H';
-        
-        // Add interactive code examples
-        function addInteractiveExamples() {
-            const challenge = window.game.learningPath[window.game.currentTopic].challenges[window.game.currentChallengeIndex];
-            const examples = challenge.examples || [];
-            
-            if (examples.length > 0) {
-                const examplesContainer = document.createElement('div');
-                examplesContainer.className = 'mt-4';
-                examplesContainer.innerHTML = `
-                    <h4 class="text-sm font-semibold mb-2">💡 Examples:</h4>
-                    <div class="space-y-2" id="examplesList"></div>
-                `;
-                
-                document.getElementById('learningArea').insertBefore(examplesContainer, document.querySelector('.mt-auto'));
-                
-                const examplesList = document.getElementById('examplesList');
-                examples.forEach(example => {
-                    const exampleElement = document.createElement('div');
-                    exampleElement.className = 'bg-gray-800 p-2 rounded text-sm interactive-element';
-                    exampleElement.innerHTML = `
-                        <code class="text-quest-accent">${example.code}</code>
-                        <span class="text-gray-400 ml-2">${example.description}</span>
-                        <button class="float-right text-xs bg-quest-primary text-white px-2 py-1 rounded copy-btn" data-code="${example.code}">Copy</button>
-                    `;
-                    examplesList.appendChild(exampleElement);
-                });
-                
-                // Add copy functionality
-                document.querySelectorAll('.copy-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const code = this.getAttribute('data-code');
-                        navigator.clipboard.writeText(code).then(() => {
-                            this.textContent = 'Copied!';
-                            setTimeout(() => {
-                                this.textContent = 'Copy';
-                            }, 2000);
-                        });
-                    });
-                });
-            }
-        }
+       
         
         // Modify the loadCurrentChallenge function to include examples
         const originalLoadChallenge = window.game.loadCurrentChallenge;
@@ -754,6 +707,22 @@
         // Initialize the game with enhanced functionality
         window.game.loadCurrentChallenge();
     });
+    document.addEventListener("DOMContentLoaded", () => {
+    window.game = new TailwindLearningGame();
+
+    // ✅ Check overall progress
+    const progressTracker = game.progressTracker;
+    const overallProgress = progressTracker.getOverallProgress();
+
+    // ✅ Show tutorial only if overall progress = 0% AND not shown this session
+    if (overallProgress === 0 && !sessionStorage.getItem("tutorialShown")) {
+        const tutorial = document.getElementById("tutorialOverlay");
+        if (tutorial) {
+            tutorial.classList.remove("hidden");
+            sessionStorage.setItem("tutorialShown", "true");
+        }
+    }
+});
     </script>
 </body>
 </html>

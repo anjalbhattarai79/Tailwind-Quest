@@ -321,7 +321,7 @@ class TailwindLearningGame {
             const targetHint = document.getElementById('targetHint');
             if (targetHint) {
                 targetHint.innerHTML = `Apply the class: <span class="font-mono text-quest-accent">${challenge.correctAnswer}</span>`;
-                targetHint.classList.remove('hidden');
+                targetHint.classList.add('hidden');
             }
         }
     }
