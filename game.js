@@ -484,7 +484,199 @@ class TailwindLearningGame {
     }
 }
 
-// Initialize the game when the page loads
+// Tutorial Manager Class
+class TutorialManager {
+    constructor(game) {
+        this.game = game;
+        this.currentStep = 0;
+
+        // Steps for tutorial
+        this.steps = [
+            {
+                title: "Welcome to Tailwind Quest!",
+                text: "In this game, you'll learn Tailwind CSS by completing coding challenges.",
+                highlight: null
+            },
+            {
+                title: "Before We Start",
+                text: "We recommend you have a basic understanding of HTML and CSS. If you're new, consider checking out our blog post on getting started with those topics.",
+                highlight: null
+            },
+            {
+                title: "Code Editor",
+                text: "Here's where you type Tailwind classes. Try applying the correct ones to solve challenges.",
+                highlight: "#codeEditor"
+            },
+            {
+                title: "Target Area",
+                text: "This shows what your code should look like once styled correctly.",
+                highlight: "#targetPreview"
+            },
+            {
+                title: "Live Preview",
+                text: "As you type in the editor, your work will be rendered here in real time.",
+                highlight: "#previewContainer"
+            },
+            {
+                title: "Progress Bar",
+                text: "Track your learning progress in the following topic here.",
+                highlight: "#overallProgressSection"
+            },
+            {
+                title: "Achievements",
+                text: "Earn badges like 'Speedrunner' or 'Perfect Score' for extra challenges!",
+                highlight: "#achievementsContainer"
+            },
+            {
+                title: "You're Ready!",
+                text: "That's it! Time to start learning Tailwind. Good luck!",
+                highlight: null
+            }
+        ];
+
+        this.overlay = document.getElementById("tutorialOverlay");
+        this.title = document.getElementById("tutorialTitle");
+        this.text = document.getElementById("tutorialText");
+        this.nextBtn = document.getElementById("tutorialNext");
+        this.prevBtn = document.getElementById("tutorialPrev");
+        this.skipBtn = document.getElementById("tutorialSkip");
+        this.currentStepEl = document.getElementById("tutorialCurrentStep");
+        this.totalStepsEl = document.getElementById("tutorialTotalSteps");
+
+        if (this.overlay && this.nextBtn && this.skipBtn) {
+            this.nextBtn.addEventListener("click", () => this.nextStep());
+            this.prevBtn.addEventListener("click", () => this.prevStep());
+            this.skipBtn.addEventListener("click", () => this.endTutorial());
+        }
+        
+        // Set total steps
+        if (this.totalStepsEl) {
+            this.totalStepsEl.textContent = this.steps.length;
+        }
+    }
+
+    start() {
+        this.currentStep = 0;
+        this.showStep();
+        this.overlay.classList.remove("hidden");
+    }
+
+    showStep() {
+        const step = this.steps[this.currentStep];
+        if (!step) return this.endTutorial();
+
+        this.title.textContent = step.title;
+        this.text.textContent = step.text;
+        
+        // Update step counter
+        if (this.currentStepEl) {
+            this.currentStepEl.textContent = this.currentStep + 1;
+        }
+        
+        // Update button states
+        if (this.prevBtn) {
+            this.prevBtn.disabled = this.currentStep === 0;
+        }
+        if (this.nextBtn) {
+            this.nextBtn.textContent = this.currentStep === this.steps.length - 1 ? "Finish" : "Next";
+        }
+
+        // Remove previous highlight
+        document.querySelectorAll(".tutorial-highlight").forEach(el => {
+            el.classList.remove("ring-4", "ring-yellow-400", "ring-offset-2", "tutorial-highlight");
+        });
+
+        // Highlight new element if exists
+        if (step.highlight) {
+            const el = document.querySelector(step.highlight);
+            if (el) {
+                el.classList.add("ring-4", "ring-yellow-400", "ring-offset-2", "tutorial-highlight");
+                
+                // Scroll to the element
+                el.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                    inline: "nearest"
+                });
+            }
+        }
+    }
+
+    nextStep() {
+        this.currentStep++;
+        if (this.currentStep >= this.steps.length) {
+            this.endTutorial();
+        } else {
+            this.showStep();
+        }
+    }
+    
+    prevStep() {
+        if (this.currentStep > 0) {
+            this.currentStep--;
+            this.showStep();
+        }
+    }
+
+    endTutorial() {
+        this.overlay.classList.add("hidden");
+        // Remove highlight if any left
+        document.querySelectorAll(".tutorial-highlight").forEach(el => {
+            el.classList.remove("ring-4", "ring-yellow-400", "ring-offset-2", "tutorial-highlight");
+        });
+    }
+}
+
+// Add these styles to your CSS for the tutorial navigation
+const tutorialStyles = `
+.tutorial-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.tutorial-step-counter {
+    color: #9CA3AF;
+    font-size: 0.875rem;
+}
+
+#tutorialPrev:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+`;
+
+// Add the styles to the document
+const styleSheet = document.createElement('style');
+styleSheet.textContent = tutorialStyles;
+document.head.appendChild(styleSheet);
+
+// Initialize tutorial when page loads
 document.addEventListener('DOMContentLoaded', () => {
+    // Your existing game initialization
     window.game = new TailwindLearningGame();
+    
+    // Initialize tutorial
+    window.tutorial = new TutorialManager(window.game);
+
+    // Show tutorial if overall progress = 0% and not shown this session
+    const progressTracker = window.game.progressTracker;
+    const overallProgress = progressTracker.getOverallProgress();
+
+    if (overallProgress === 0 && !sessionStorage.getItem("tutorialShown")) {
+        // Small delay to ensure DOM is fully rendered
+        setTimeout(() => {
+            window.tutorial.start();
+            sessionStorage.setItem("tutorialShown", "true");
+        }, 500);
+    }
+    
+    // Add click event to tutorial button if you have one
+    const tutorialBtn = document.getElementById('tutorialBtn');
+    if (tutorialBtn) {
+        tutorialBtn.addEventListener('click', () => {
+            window.tutorial.start();
+        });
+    }
 });

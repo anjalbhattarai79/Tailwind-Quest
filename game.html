@@ -245,33 +245,40 @@
             40%, 60% { transform: translateX(4px); }
         }
         
-        /* Tutorial overlay */
+       /* Custom animations for tutorial */
+        @keyframes pulse-highlight {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .tutorial-highlight {
+            animation: pulse-highlight 2s infinite;
+            position: relative;
+            z-index: 40;
+        }
+        
         .tutorial-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
+            animation: fadeIn 0.3s ease-out;
         }
         
-        .tutorial-content {
-            background: rgba(31, 41, 55, 0.95);
-            padding: 2rem;
-            border-radius: 12px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        /* Custom scrollbar for tutorial */
+        .tutorial-content::-webkit-scrollbar {
+            width: 6px;
         }
         
-        .tutorial-navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1.5rem;
+        .tutorial-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+        
+        .tutorial-content::-webkit-scrollbar-thumb {
+            background: rgba(251, 191, 36, 0.5);
+            border-radius: 3px;
         }
     </style>
 </head>
@@ -364,7 +371,7 @@
                                     <div class="text-left mb-2">
                                         <label class="text-sm font-semibold">HTML Code:</label>
                                     </div>
-                                    <div class="code-preview text-left">
+                                    <div id="codeEditor" class="code-preview text-left">
                                         <div class="text-gray-400 text-sm mb-2">// Edit this line:</div>
                                         <div class="bg-gray-800 p-3 rounded">
                                             <span class="text-gray-300">&lt;div class="</span>
@@ -399,7 +406,7 @@
                     <div class="w-full lg:w-2/4">
                         <div class="quest-card rounded-lg p-4 md:p-6 border border-white/20 h-full">
                             <!-- Target Preview -->
-                            <div class="mt-6">
+                            <div class="mt-6" id="targetPreview">
                                 <div class="text-left mb-4">
                                     <label class="text-lg font-semibold">Target Result:</label>
                                 </div>
@@ -413,7 +420,7 @@
                                 </div>
                             </div>
                             <!--Live Preview -->
-                            <div class="text-left mb-4">
+                            <div class="text-left mb-4" id="livePreviewSection">
                                 <label class="text-lg font-semibold">Live Preview:</label>
                             </div>
                             <div id="previewContainer" class="bg-white rounded-lg p-4 min-h-[200px] md:min-h-[300px] border-2 border-dashed border-gray-400 flex items-center justify-center">
@@ -460,7 +467,7 @@
                 </div>
 
                 <!-- Progress Section at Bottom -->
-                <div class="p-4 bg-quest-dark/30 border-t border-white/20">
+                <div id="overallProgressSection" class="p-4 bg-quest-dark/30 border-t border-white/20">
                 <div class="max-w-4xl mx-auto">
                     <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
                         <div class="flex items-center space-x-4">
@@ -500,27 +507,34 @@
         </div>
     </div>
 
-    <!-- Tutorial Overlay (initially hidden) -->
-    <div id="tutorialOverlay" class="tutorial-overlay hidden">
-        <div class="tutorial-content">
-            <h2 class="text-2xl font-bold text-quest-primary mb-4">Welcome to Tailwind Quest!</h2>
-            <p class="text-gray-300 mb-4">Learn Tailwind CSS through interactive challenges. Here's how to play:</p>
-            <ol class="list-decimal list-inside text-gray-300 mb-6 space-y-2">
-                <li>Enter the correct Tailwind class in the code editor</li>
-                <li>Click "Check Answer" to verify your solution</li>
-                <li>Use "Get Hint" if you need help</li>
-                <li>Complete challenges to earn points and achievements</li>
-            </ol>
-            <div class="tutorial-navigation">
-                <button id="skipTutorialBtn" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors">
-                    Skip Tutorial
-                </button>
-                <button id="nextTutorialBtn" class="bg-quest-primary hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
-                    Let's Go!
-                </button>
+    <!-- Tutorial Overlay -->
+        <div id="tutorialOverlay" class="tutorial-overlay fixed bg-black bg-opacity-0 hidden z-50 p-0" style="left:50px; right:auto; bottom:160px; top:auto; width:auto; height:auto;">
+        <div class="bg-gray-800 rounded-xl max-w-md w-full overflow-hidden bottom-20">
+            <div class="p-6 tutorial-content max-h-[70vh] overflow-y-auto">
+                <h2 id="tutorialTitle" class="text-2xl font-bold mb-3 text-[#6366f1]"></h2>
+                <p id="tutorialText" class="text-gray-300 mb-6"></p>
+                
+                <div class="flex justify-between items-center">
+                    <div class="text-sm text-gray-400">
+                        Step <span id="tutorialCurrentStep">1</span> of <span id="tutorialTotalSteps">7</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button id="tutorialPrev" class="px-4 py-2 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 transition-colors">
+                            Previous
+                        </button>
+                        <button id="tutorialNext" class="px-4 py-2 bg-[#6366f1] text-gray-900 font-bold rounded-lg hover:bg-amber-600 transition-colors">
+                            Next
+                        </button>
+                        <button id="tutorialSkip" class="px-4 py-2 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 transition-colors">
+                            Skip
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Chatbot -->
     <div class="chatbot-container chatbot-closed" id="chatbotContainer">
         <div class="chatbot-window">
             <div class="chatbot-header">
@@ -558,20 +572,6 @@
     <script>
     // Enhanced game functionality with interactive elements
     document.addEventListener('DOMContentLoaded', function() {
-        // Check if this is the user's first visit
-        if (!localStorage.getItem('tailwindQuestFirstVisit')) {
-            document.getElementById('tutorialOverlay').classList.remove('hidden');
-            localStorage.setItem('tailwindQuestFirstVisit', 'true');
-        }
-        
-        // Tutorial event listeners
-        document.getElementById('skipTutorialBtn').addEventListener('click', function() {
-            document.getElementById('tutorialOverlay').classList.add('hidden');
-        });
-        
-        document.getElementById('nextTutorialBtn').addEventListener('click', function() {
-            document.getElementById('tutorialOverlay').classList.add('hidden');
-        });
         
         // Create confetti elements
         function createConfetti() {
