@@ -62,7 +62,7 @@ function showNotification(title, message, type = 'success', duration = 5000) {
         </div>
     `;
     
-    document.getElementById('notification-container').appendChild(notification);
+    document.body.appendChild(notification);
     
     // Show notification with slide-in effect
     setTimeout(() => {
