@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Anjal Bhattarai,Ishan Maharjan,Shahil Basnet,Sushan Pudasaini">
+    <meta name="description" content="A website to learn different features of css">
+    <meta name="keywords" content="css, tailwindcss, tailwind, js, SEO">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.0.6/markdown-it.min.css">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Tailwind Quest - Gameplay</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'quest-primary': '#3B82F6',
+                        'quest-secondary': '#10B981',
+                        'quest-accent': '#F59E0B',
+                        'quest-dark': '#1F2937',
+                        'quest-light': '#F3F4F6'
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'tada': 'tada 0.8s ease-in-out',
+                        'celebrate': 'celebrate 1.5s ease-out',
+                        'confetti': 'confetti 1.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        tada: {
+                            '0%': { transform: 'scale(1)' },
+                            '10%, 20%': { transform: 'scale(0.9) rotate(-3deg)' },
+                            '30%, 50%, 70%, 90%': { transform: 'scale(1.1) rotate(3deg)' },
+                            '40%, 60%, 80%': { transform: 'scale(1.1) rotate(-3deg)' },
+                            '100%': { transform: 'scale(1) rotate(0)' },
+                        },
+                        celebrate: {
+                            '0%': { transform: 'translateY(0) scale(1)', opacity: '1' },
+                            '50%': { transform: 'translateY(-20px) scale(1.2)', opacity: '0.8' },
+                            '100%': { transform: 'translateY(-40px) scale(1.5)', opacity: '0' },
+                        },
+                        confetti: {
+                            '0%': { transform: 'translateY(0) rotate(0)', opacity: '1' },
+                            '100%': { transform: 'translateY(100vh) rotate(720deg)', opacity: '0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #cbd5e1;
+        }
+        .game-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: calc(100vh - 4rem); /* Full height minus navbar */
+        }
+        .quest-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .chat-message {
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .code-preview {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .class-highlight {
+            background: rgba(59, 130, 246, 0.3);
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        /* Interactive elements */
+        .interactive-element {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .interactive-element:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .achievement-badge {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+            font-weight: bold;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .achievement-badge:hover {
+            transform: scale(1.2) rotate(5deg);
+        }
+        
+        .achievement-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(31, 41, 55, 0.95);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            margin-bottom: 8px;
+            z-index: 100;
+        }
+        
+        .achievement-badge:hover .achievement-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #F59E0B;
+            opacity: 0;
+            z-index: 1000;
+            pointer-events: none;
+        }
+        
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        
+        .celebration-content {
+            background: rgba(31, 41, 55, 0.9);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            animation: celebrate 1s ease-out;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid #3B82F6;
+            white-space: nowrap;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #3B82F6 }
+        }
+        
+        .hint-reveal {
+            animation: hintReveal 0.5s ease-out;
+        }
+        
+        @keyframes hintReveal {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .progress-pulse {
+            animation: progressPulse 2s infinite;
+        }
+        
+        @keyframes progressPulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        
+        @keyframes shake {
+            10%, 90% { transform: translateX(-1px); }
+            20%, 80% { transform: translateX(2px); }
+            30%, 50%, 70% { transform: translateX(-4px); }
+            40%, 60% { transform: translateX(4px); }
+        }
+        
+        /* Tutorial overlay */
+        .tutorial-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        .tutorial-content {
+            background: rgba(31, 41, 55, 0.95);
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tutorial-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-quest-dark/80 backdrop-blur-sm border-b border-gray-700 sticky top-0 z-50 ">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <img src="./img/logo.png" alt="Logo" class="h-8 inline-block rounded-full">
+                    <h1 class="text-2xl font-bold ">Tailwind Quest</h1>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="./index.html" class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">Home</a>
+                    <a href="./topics.html" class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">Learn</a>
+                    <a href="./about.html" class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">About Us</a>
+                    <a href="./contactus.html" class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">Contact Us</a>
+                    <a href="./blog.html" class="text-gray-300 hover:text-quest-primary transition-colors duration-200 font-medium">Blog</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button class="text-gray-300 hover:text-quest-primary focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-4">
+                    <span class="text-sm text-gray-300">Level: <span id="level" class="font-bold text-quest-secondary">1</span></span>
+                    <span class="text-sm text-gray-300">Score: <span id="score" class="font-bold text-quest-accent">0</span></span>
+                    <span class="text-sm text-gray-300">Concepts: <span id="concepts" class="font-bold text-purple-400">0</span></span>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu (Hidden by default) -->
+            <div class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="./index.html" class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">Home</a>
+                    <a href="./topics.html" class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">Play Game</a>
+                    <a href="./about.html" class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">About Us</a>
+                    <a href="./contactus.html" class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">Contact Us</a>
+                    <a href="./blog.html" class="block px-3 py-2 text-gray-300 hover:text-quest-primary transition-colors duration-200">Blog</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Game Container -->
+    <div class="">
+        <!-- Game Screen -->
+        <div id="gameScreen" class="h-full">
+            <div class="h-full flex flex-col">
+                <!-- Game Header -->
+                <div class="flex flex-col md:flex-row justify-between items-center p-4 bg-quest-dark/30">
+                    <div class="flex items-center space-x-4 mb-2 md:mb-0">
+                        <button id="backToHomeBtn" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors interactive-element">
+                            ← Back to Learn
+                        </button>
+                        <h2 class="text-xl md:text-2xl font-bold">Level <span id="gameLevel">1</span>: <span id="currentTopic">Spacing Basics</span></h2>
+                    </div>
+                    <div class="flex items-center space-x-6">
+                        <div class="text-center">
+                            <div class="text-xs md:text-sm text-gray-300">Score</div>
+                            <div id="gameScore" class="text-xl md:text-2xl font-bold text-quest-accent">0</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-xs md:text-sm text-gray-300">Progress</div>
+                            <div id="progress" class="text-xl md:text-2xl font-bold text-quest-secondary">0%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Area - Split Layout -->
+                <div class="flex flex-col lg:flex-row gap-6">
+                    <!-- Left Panel - Learning Area -->
+                    <div class="w-full lg:w-2/4">
+                        <div class="quest-card rounded-lg p-6 border border-white/20 min-h-200 h-full flex flex-col">
+                            <div id="learningArea" class="flex-1 flex flex-col">
+                                <div class="mb-4 md:mb-6">
+                                    <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-4">🎯 Challenge: <span id="challengeTitle">Add Padding</span></h3>
+                                    <p class="text-gray-300 mb-4 md:mb-6" id="challengeDescription">Add the correct Tailwind class to give this box some padding.</p>
+                                </div>
+                                
+                                <!-- Code Editor -->
+                                <div class="mb-4 md:mb-6">
+                                    <div class="text-left mb-2">
+                                        <label class="text-sm font-semibold">HTML Code:</label>
+                                    </div>
+                                    <div class="code-preview text-left">
+                                        <div class="text-gray-400 text-sm mb-2">// Edit this line:</div>
+                                        <div class="bg-gray-800 p-3 rounded">
+                                            <span class="text-gray-300">&lt;div class="</span>
+                                            <input type="text" id="codeInput" placeholder="Enter Tailwind class..." 
+                                                class="bg-transparent border-none outline-none text-quest-accent font-mono text-lg w-32 md:w-48">
+                                            <span class="text-gray-300">"&gt;</span>
+                                            <span class="text-gray-400">Box content</span>
+                                            <span class="text-gray-300">&lt;/div&gt;</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Challenge Controls -->
+                                <div class="mt-auto pt-4">
+                                    <div class="flex flex-wrap justify-center gap-2">
+                                        <button id="checkAnswerBtn" class="bg-quest-secondary hover:bg-green-600 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-lg transition-colors interactive-element">
+                                            Check Answer
+                                        </button>
+                                        <button id="hintBtn" class="bg-quest-accent hover:bg-yellow-600 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-lg transition-colors interactive-element">
+                                            Get Hint
+                                        </button>
+                                        <button id="nextChallengeBtn" class="bg-quest-primary hover:bg-blue-600 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-lg transition-colors interactive-element hidden">
+                                            Next Challenge
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Panel -->
+                    <div class="w-full lg:w-2/4">
+                        <div class="quest-card rounded-lg p-4 md:p-6 border border-white/20 h-full">
+                            <!-- Target Preview -->
+                            <div class="mt-6">
+                                <div class="text-left mb-4">
+                                    <label class="text-lg font-semibold">Target Result:</label>
+                                </div>
+                                <div class="bg-white rounded-lg p-4 min-h-[200px] border-2 border-dashed border-green-400 flex items-center justify-center">
+                                    <div id="targetElement" class="bg-gray-200 text-gray-800 p-4 rounded">
+                                        Box content
+                                    </div>
+                                </div>
+                                <div class="hidden shadow-purple-600 shadow-2xl text-xs text-gray-400 mt-2 text-center" id="targetHint">
+                                    Try to match this appearance
+                                </div>
+                            </div>
+                            <!--Live Preview -->
+                            <div class="text-left mb-4">
+                                <label class="text-lg font-semibold">Live Preview:</label>
+                            </div>
+                            <div id="previewContainer" class="bg-white rounded-lg p-4 min-h-[200px] md:min-h-[300px] border-2 border-dashed border-gray-400 flex items-center justify-center">
+                                <div id="previewElement" class="bg-gray-200 text-gray-800 p-2 rounded">
+                                    Box content
+                                </div>
+                            </div>
+                    
+                            <!-- Progress Stats -->
+                            <div class="mt-6">
+                                <h3 class="text-lg font-bold mb-3">📊 Quick Stats</h3>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="text-center p-2 bg-quest-dark/30 rounded">
+                                        <div class="text-xl font-bold text-quest-accent" id="completedChallenges">0</div>
+                                        <div class="text-xs text-gray-300">Completed</div>
+                                    </div>
+                                    <div class="text-center p-2 bg-quest-dark/30 rounded">
+                                        <div class="text-xl font-bold text-quest-primary" id="conceptsLearned">0</div>
+                                        <div class="text-xs text-gray-300">Concepts</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Achievements -->
+                                <div class="mt-4">
+                                    <h3 class="text-lg font-bold mb-3">🏆 Achievements</h3>
+                                    <div class="flex justify-center space-x-2" id="achievementsContainer">
+                                        <div class="achievement-badge" data-tooltip="First Challenge Completed">
+                                            <span>1</span>
+                                            <div class="achievement-tooltip">First Challenge Completed</div>
+                                        </div>
+                                        <div class="achievement-badge opacity-30" data-tooltip="Speed Runner">
+                                            <span>⚡</span>
+                                            <div class="achievement-tooltip">Speed Runner</div>
+                                        </div>
+                                        <div class="achievement-badge opacity-30" data-tooltip="Perfect Score">
+                                            <span>⭐</span>
+                                            <div class="achievement-tooltip">Perfect Score</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Section at Bottom -->
+                <div class="p-4 bg-quest-dark/30 border-t border-white/20">
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+                        <div class="flex items-center space-x-4">
+                            <h3 class="text-lg font-bold">Overall Progress</h3>
+                            <span id="overallProgress" class="text-quest-primary font-bold">0%</span>
+                        </div>
+                        
+                        <div class="w-full md:w-64 lg:w-96">
+                            <div class="w-full bg-gray-700 rounded-full h-3">
+                                <div id="progressBar" class="bg-quest-primary h-3 rounded-full transition-all duration-300 progress-pulse" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-6">
+                            <div class="text-center">
+                                <div class="text-sm text-gray-300">Accuracy</div>
+                                <div id="accuracy" class="text-xl font-bold text-quest-secondary">0%</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-sm text-gray-300">Streak</div>
+                                <div id="streak" class="text-xl font-bold text-purple-400">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Celebration Container (initially hidden) -->
+    <div id="celebrationContainer" class="celebration hidden">
+        <div class="celebration-content">
+            <h2 class="text-3xl font-bold text-quest-accent mb-4">🎉 Challenge Complete!</h2>
+            <p class="text-xl text-gray-300 mb-6">You earned <span class="text-quest-secondary font-bold">+10</span> points!</p>
+            <div class="text-4xl mb-4" id="celebrationIcon">⭐</div>
+        </div>
+    </div>
+
+    <!-- Tutorial Overlay (initially hidden) -->
+    <div id="tutorialOverlay" class="tutorial-overlay hidden">
+        <div class="tutorial-content">
+            <h2 class="text-2xl font-bold text-quest-primary mb-4">Welcome to Tailwind Quest!</h2>
+            <p class="text-gray-300 mb-4">Learn Tailwind CSS through interactive challenges. Here's how to play:</p>
+            <ol class="list-decimal list-inside text-gray-300 mb-6 space-y-2">
+                <li>Enter the correct Tailwind class in the code editor</li>
+                <li>Click "Check Answer" to verify your solution</li>
+                <li>Use "Get Hint" if you need help</li>
+                <li>Complete challenges to earn points and achievements</li>
+            </ol>
+            <div class="tutorial-navigation">
+                <button id="skipTutorialBtn" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors">
+                    Skip Tutorial
+                </button>
+                <button id="nextTutorialBtn" class="bg-quest-primary hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                    Let's Go!
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="chatbot-container chatbot-closed" id="chatbotContainer">
+        <div class="chatbot-window">
+            <div class="chatbot-header">
+                <div class="chatbot-avatar">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <div class="chatbot-title">Tailwind Assistant</div>
+                <div class="chatbot-status"></div>
+            </div>
+            <div class="chatbot-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <div class="markdown-content">Hi there! I'm your Tailwind CSS assistant. How can I help you today?</div>
+                </div>
+            </div>
+            <div class="chatbot-input-container">
+                <input type="text" class="chatbot-input" id="chatInput" placeholder="Type your message...">
+                <button class="chatbot-send" id="chatSend">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="chatbot-toggle" id="chatbotToggle">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+        </div>
+    </div>
+    <script src="./game.js"></script>
+    <script src="./script.js"></script>
+    <script src="./chatbot.js"></script>
+    <script>
+    // Enhanced game functionality with interactive elements
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if this is the user's first visit
+        if (!localStorage.getItem('tailwindQuestFirstVisit')) {
+            document.getElementById('tutorialOverlay').classList.remove('hidden');
+            localStorage.setItem('tailwindQuestFirstVisit', 'true');
+        }
+        
+        // Tutorial event listeners
+        document.getElementById('skipTutorialBtn').addEventListener('click', function() {
+            document.getElementById('tutorialOverlay').classList.add('hidden');
+        });
+        
+        document.getElementById('nextTutorialBtn').addEventListener('click', function() {
+            document.getElementById('tutorialOverlay').classList.add('hidden');
+        });
+        
+        // Create confetti elements
+        function createConfetti() {
+            const colors = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'];
+            const container = document.body;
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animation = `confettiFall ${1 + Math.random() * 2}s linear forwards`;
+                confetti.style.animationDelay = Math.random() * 1 + 's';
+                container.appendChild(confetti);
+                
+                // Remove confetti after animation completes
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+        }
+        
+        // Celebration animation
+        function celebrateCompletion() {
+            const celebration = document.getElementById('celebrationContainer');
+            const icon = document.getElementById('celebrationIcon');
+            
+            // Random celebration icon
+            const icons = ['🎉', '⭐', '🏆', '🔥', '✨'];
+            icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+            
+            celebration.classList.remove('hidden');
+            createConfetti();
+            
+            // Hide celebration after delay
+            setTimeout(() => {
+                celebration.classList.add('hidden');
+            }, 2000);
+        }
+        
+        // Enhanced check answer function
+        function checkAnswer() {
+            const userInput = document.getElementById('codeInput').value.trim();
+            const challenge = window.game.learningPath[window.game.currentTopic].challenges[window.game.currentChallengeIndex];
+            
+            if (userInput === challenge.correctAnswer) {
+                // Correct answer
+                document.getElementById('checkAnswerBtn').classList.add('animate-tada');
+                document.getElementById('previewContainer').classList.add('animate-pulse');
+                
+                // Celebrate
+                celebrateCompletion();
+                
+                // Handle correct answer after a short delay
+                setTimeout(() => {
+                    window.game.handleCorrectAnswer(challenge);
+                    document.getElementById('checkAnswerBtn').classList.remove('animate-tada');
+                    document.getElementById('previewContainer').classList.remove('animate-pulse');
+                }, 800);
+            } else {
+                // Incorrect answer
+                document.getElementById('codeInput').classList.add('shake');
+                
+                // Handle incorrect answer after animation
+                setTimeout(() => {
+                    window.game.handleIncorrectAnswer(challenge);
+                    document.getElementById('codeInput').classList.remove('shake');
+                }, 500);
+            }
+        }
+        
+        
+        
+        // Update event listeners with enhanced functionality
+        document.getElementById('checkAnswerBtn').addEventListener('click', checkAnswer);
+        document.getElementById('hintBtn').addEventListener('click', showHint);
+        
+        // Add interactive sound effects (using the Web Audio API)
+        function playSound(frequency, duration) {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = frequency;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration);
+            } catch (e) {
+                console.log('Web Audio API not supported in this browser');
+            }
+        }
+        
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+Enter to check answer
+            if (e.ctrlKey && e.key === 'Enter') {
+                e.preventDefault();
+                checkAnswer();
+            }
+            
+            // Ctrl+H for hint
+            if (e.ctrlKey && e.key === 'h') {
+                e.preventDefault();
+                showHint();
+            }
+            
+            // Ctrl+ArrowRight for next challenge
+            if (e.ctrlKey && e.key === 'ArrowRight') {
+                e.preventDefault();
+                if (!document.getElementById('nextChallengeBtn').classList.contains('hidden')) {
+                    window.game.nextChallenge();
+                }
+            }
+        });
+        
+        // Add tooltips for keyboard shortcuts
+        const checkAnswerBtn = document.getElementById('checkAnswerBtn');
+        checkAnswerBtn.title = 'Ctrl+Enter';
+        
+        const hintBtn = document.getElementById('hintBtn');
+        hintBtn.title = 'Ctrl+H';
+        
+        // Add interactive code examples
+        function addInteractiveExamples() {
+            const challenge = window.game.learningPath[window.game.currentTopic].challenges[window.game.currentChallengeIndex];
+            const examples = challenge.examples || [];
+            
+            if (examples.length > 0) {
+                const examplesContainer = document.createElement('div');
+                examplesContainer.className = 'mt-4';
+                examplesContainer.innerHTML = `
+                    <h4 class="text-sm font-semibold mb-2">💡 Examples:</h4>
+                    <div class="space-y-2" id="examplesList"></div>
+                `;
+                
+                document.getElementById('learningArea').insertBefore(examplesContainer, document.querySelector('.mt-auto'));
+                
+                const examplesList = document.getElementById('examplesList');
+                examples.forEach(example => {
+                    const exampleElement = document.createElement('div');
+                    exampleElement.className = 'bg-gray-800 p-2 rounded text-sm interactive-element';
+                    exampleElement.innerHTML = `
+                        <code class="text-quest-accent">${example.code}</code>
+                        <span class="text-gray-400 ml-2">${example.description}</span>
+                        <button class="float-right text-xs bg-quest-primary text-white px-2 py-1 rounded copy-btn" data-code="${example.code}">Copy</button>
+                    `;
+                    examplesList.appendChild(exampleElement);
+                });
+                
+                // Add copy functionality
+                document.querySelectorAll('.copy-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const code = this.getAttribute('data-code');
+                        navigator.clipboard.writeText(code).then(() => {
+                            this.textContent = 'Copied!';
+                            setTimeout(() => {
+                                this.textContent = 'Copy';
+                            }, 2000);
+                        });
+                    });
+                });
+            }
+        }
+        
+        // Modify the loadCurrentChallenge function to include examples
+        const originalLoadChallenge = window.game.loadCurrentChallenge;
+        window.game.loadCurrentChallenge = function() {
+            originalLoadChallenge.call(this);
+            addInteractiveExamples();
+        };
+        
+        // Initialize the game with enhanced functionality
+        window.game.loadCurrentChallenge();
+    });
+    </script>
+</body>
+</html>
