@@ -510,7 +510,7 @@ class TutorialManager {
             {
                 title: "Target Area",
                 text: "This shows what your code should look like once styled correctly.",
-                highlight: "#targetPreview"
+                highlight: "#targetContainer"
             },
             {
                 title: "Live Preview",
@@ -518,14 +518,19 @@ class TutorialManager {
                 highlight: "#previewContainer"
             },
             {
+                title: "Achievements",
+                text: "Earn badges like 'Speedrunner' or 'Perfect Score' for extra challenges!",
+                highlight: "#achievementsContainer"
+            },
+            {
                 title: "Progress Bar",
                 text: "Track your learning progress in the following topic here.",
                 highlight: "#overallProgressSection"
             },
             {
-                title: "Achievements",
-                text: "Earn badges like 'Speedrunner' or 'Perfect Score' for extra challenges!",
-                highlight: "#achievementsContainer"
+                title: "Need Help?",
+                text: "Click the chat icon anytime for hints or explanations.",
+                highlight: "#chatbotToggle"
             },
             {
                 title: "You're Ready!",
@@ -583,14 +588,19 @@ class TutorialManager {
 
         // Remove previous highlight
         document.querySelectorAll(".tutorial-highlight").forEach(el => {
-            el.classList.remove("ring-4", "ring-yellow-400", "ring-offset-2", "tutorial-highlight");
+            el.classList.remove("ring-4", "ring-purple-400", "ring-offset-2", "tutorial-highlight", "shadow-[0_0_2000px_2000px_rgba(0,0,0,0.5)]");
         });
 
         // Highlight new element if exists
         if (step.highlight) {
             const el = document.querySelector(step.highlight);
             if (el) {
-                el.classList.add("ring-4", "ring-yellow-400", "ring-offset-2", "tutorial-highlight");
+                el.classList.add("ring-4",
+                                "ring-purple-400",
+                                "ring-offset-2",
+                                "tutorial-highlight", 
+                                "shadow-[0_0_2000px_2000px_rgba(0,0,0,0.5)]"
+                                );
                 
                 // Scroll to the element
                 el.scrollIntoView({
