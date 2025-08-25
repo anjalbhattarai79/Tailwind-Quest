@@ -254,7 +254,6 @@
         
         .tutorial-overlay {
             animation: fadeIn 0.3s ease-out;
-            z-index: 1002;
         }
         
         /* Custom scrollbar for tutorial */
@@ -500,7 +499,7 @@
 
     <!-- Tutorial Overlay -->
         <div id="tutorialOverlay" class="tutorial-overlay fixed bg-black bg-opacity-0 hidden z-50 p-0" style="left:50px; right:auto; bottom:165px; top:auto; width:auto; height:auto;">
-        <div class="bg-gray-800 rounded-xl max-w-md w-full overflow-hidden bottom-20 shadow-lg border border-yellow-400 tutorial-overlay shadow-yellow-400 z-2000">
+        <div class="bg-gray-800 rounded-xl max-w-md w-full overflow-hidden bottom-20 shadow-lg border border-yellow-400 tutorial-overlay shadow-yellow-400/5">
             <div class="p-6 tutorial-content max-h-[70vh] overflow-y-auto">
                 <h2 id="tutorialTitle" class="text-2xl font-bold mb-3 text-[#6366f1]"></h2>
                 <p id="tutorialText" class="text-gray-300 mb-6"></p>
@@ -556,6 +555,9 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
             </svg>
         </div>
+    </div>
+    <div id="chatBotFakeOverlay" class="chatbotFakeOverlayClass" style="position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; border-radius: 50%; z-index: 30;">
+
     </div>
     <script src="./game.js"></script>
     <script src="./script.js"></script>

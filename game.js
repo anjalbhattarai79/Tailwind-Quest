@@ -530,7 +530,7 @@ class TutorialManager {
             {
                 title: "Need Help?",
                 text: "Click the chat icon anytime for hints or explanations.",
-                highlight: "#chatbotToggle"
+                highlight: "#chatBotFakeOverlay"
             },
             {
                 title: "You're Ready!",
@@ -588,7 +588,7 @@ class TutorialManager {
 
         // Remove previous highlight
         document.querySelectorAll(".tutorial-highlight").forEach(el => {
-            el.classList.remove("ring-4", "ring-purple-400", "ring-offset-2", "tutorial-highlight", "shadow-[0_0_2000px_2000px_rgba(0,0,0,0.5)]");
+            el.classList.remove("ring-4", "ring-purple-400", "ring-offset-2", "tutorial-highlight", "shadow-[0_0_2000px_2500px_rgba(0,0,0,0.5)]", "z-9999");
         });
 
         // Highlight new element if exists
@@ -599,7 +599,8 @@ class TutorialManager {
                                 "ring-purple-400",
                                 "ring-offset-2",
                                 "tutorial-highlight", 
-                                "shadow-[0_0_2000px_2000px_rgba(0,0,0,0.5)]"
+                                "shadow-[0_0_2000px_2500px_rgba(0,0,0,0.5)]",
+                                "z-9999"
                                 );
                 
                 // Scroll to the element
