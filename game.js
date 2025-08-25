@@ -484,13 +484,13 @@ class TailwindLearningGame {
     }
 }
 
-// Tutorial Manager Class
+// Tutorial Manager
 class TutorialManager {
     constructor(game) {
         this.game = game;
         this.currentStep = 0;
 
-        // Steps for tutorial
+        // Steps for tutorial: can add more as needed
         this.steps = [
             {
                 title: "Welcome to Tailwind Quest!",
