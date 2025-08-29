@@ -8,6 +8,8 @@
     <meta name="keywords" content="css, tailwindcss, tailwind, js, SEO">
     <title>Tailwind Quest - Choose Your Learning Path</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Add Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
@@ -47,16 +49,45 @@
         .category-header {
             background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
         }
+        
+        /* Full width footer */
+        .full-width-container {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+        
+        /* Social icon styling */
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        .social-icon:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Logo styling */
+        .logo-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
     </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen">
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
     <!-- Navigation -->
     <nav class="bg-quest-dark/80 backdrop-blur-sm border-b border-gray-700 sticky top-0 z-50 ">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center space-x-4">
-                    <img src="./img/logo.png" alt="Logo" class="h-8 inline-block rounded-full">
-                    <h1 class="text-2xl font-bold ">Tailwind Quest</h1>
+                    <!-- Make logo clickable to redirect to home -->
+                    <a href="./index.html" class="flex items-center space-x-2">
+                        <img src="./img/logo.png" alt="Logo" class="logo-img">
+                        <h1 class="text-2xl font-bold ">Tailwind Quest</h1>
+                    </a>
                 </div>
                 
                 <!-- Navigation Links -->
@@ -108,7 +139,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow">
         <!-- Progress Summary -->
         <div class="bg-quest-dark rounded-xl p-6 mb-12 border border-gray-700">
             <h2 class="text-2xl font-bold mb-6 text-center">Your Learning Progress</h2>
@@ -132,7 +163,7 @@
                 </div>
                 
                 <div class="text-center">
-                    <div class="text-4xl font-bold text-quest-accent" id="conceptsMastered">8</div>
+                    <div class="text-4xl font-bold text-quest-accent" id="conceptsMastered">35</div>
                     <h3 class="text-lg font-semibold mt-2">Concepts Mastered</h3>
                     <p class="text-sm text-gray-400">Out of <span id="totalConcepts">32</span> total</p>
                 </div>
@@ -355,6 +386,68 @@
         </div>
     </div>
 
+    <!-- Full Width Footer -->
+    <footer class="full-width-container bg-quest-dark text-gray-400 border-t border-gray-700 mt-16">
+        <div class="w-full px-6 py-10">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
+                
+                <!-- Brand Info -->
+                <div>
+                    <div class="flex items-center justify-center md:justify-start space-x-2 mb-2">
+                        <img src="./img/logo.png" alt="Tailwind Quest Logo" class="logo-img">
+                        <h2 class="text-xl font-bold text-quest-primary">Tailwind Quest</h2>
+                    </div>
+                    <p class="text-sm">
+                        Making Tailwind CSS learning fun, interactive, and rewarding.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-3">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="./index.html" class="hover:text-quest-primary transition">Home</a></li>
+                        <li><a href="./about.html" class="hover:text-quest-primary transition">About Us</a></li>
+                        <li><a href="./contactus.html" class="hover:text-quest-primary transition">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Social / Contact -->
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-3">Follow Us</h3>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        
+                        <!-- Facebook -->
+                        <a href="#" class="social-icon bg-gray-700 hover:bg-blue-600 p-3 rounded-full transition transform hover:-translate-y-1">
+                            <i class="fab fa-facebook-f text-white"></i>
+                        </a>
+                        
+                        <!-- GitHub -->
+                        <a href="https://github.com/anjalbhattarai79/Tailwind-Quest.git" target="_blank"
+                            class="social-icon bg-gray-700 hover:bg-gray-800 p-3 rounded-full transition transform hover:-translate-y-1">
+                            <i class="fab fa-github text-white"></i>
+                        </a>
+                        
+                        <!-- Dribbble -->
+                        <a href="#" class="social-icon bg-gray-700 hover:bg-pink-600 p-3 rounded-full transition transform hover:-translate-y-1">
+                            <i class="fab fa-dribbble text-white"></i>
+                        </a>
+                        
+                        <!-- LinkedIn -->
+                        <a href="#" class="social-icon bg-gray-700 hover:bg-blue-700 p-3 rounded-full transition transform hover:-translate-y-1">
+                            <i class="fab fa-linkedin-in text-white"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="w-full text-center text-sm text-gray-500 border-t border-gray-700 py-4">
+            © 2025 Tailwind Quest — Built with Tailwind CSS
+        </div>
+    </footer>
+
     <script>
         // Progress tracking system
         class ProgressTracker {
@@ -369,8 +462,7 @@
                     'Responsive Design': { completed: 0, total: 5 },
                     'Component Layouts': { completed: 0, total: 5 }
                 };
-                
-                this.totalConcepts = 8;
+                this.totalConcepts = 35;
                 this.totalChallenges = 0;
                 Object.values(this.topics).forEach(topic => {
                     this.totalChallenges += topic.total;
@@ -659,6 +751,5 @@
             });
         });
     </script>
-    <script src="./game.js"></script>
 </body>
 </html>
